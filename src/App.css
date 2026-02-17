@@ -1,316 +1,55 @@
-/* =====================================================
-   iOS SYSTEM GLASS — UNIFIED (ALL MODES)
-   Settings • Control Center • VisionOS
-===================================================== */
-
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* =====================================================
-   SYSTEM TOKENS
-===================================================== */
-
 :root {
-  /* Base */
-  --bg: #0a0b0e;
-
-  /* Glass */
-  --glass-ultra: rgba(255,255,255,0.20);
-  --glass-strong: rgba(255,255,255,0.14);
-  --glass: rgba(255,255,255,0.10);
-  --glass-soft: rgba(255,255,255,0.06);
-
-  /* Borders */
-  --border-strong: rgba(255,255,255,0.32);
-  --border: rgba(255,255,255,0.22);
-  --border-soft: rgba(255,255,255,0.14);
-
-  /* Blur */
-  --blur-ultra: blur(34px) saturate(200%);
-  --blur-strong: blur(24px) saturate(180%);
-  --blur: blur(16px) saturate(160%);
-
-  /* Shadows */
-  --shadow-sheet:
-    0 40px 80px rgba(0,0,0,0.55),
-    inset 0 1px 0 rgba(255,255,255,0.12);
-
-  --shadow-card:
-    0 14px 32px rgba(0,0,0,0.45),
-    inset 0 1px 0 rgba(255,255,255,0.08);
-
-  /* Text */
-  --text-main: rgba(255,255,255,0.96);
-  --text-sub: rgba(255,255,255,0.70);
-  --text-dim: rgba(255,255,255,0.46);
-
-  /* Accent */
-  --accent: #5fa8ff;
+  /* Динамические переменные для AI-персонализации */
+  --glass-density: 0.7; /* Прозрачность можно менять */
+  --animation-intensity: 0.8; /* Интенсивность анимаций */
+  --spacing-unit: clamp(1rem, 2vw, 2rem); /* Адаптивные отступы */
+  
+  /* Пространственные слои */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-overlay: 100;
+  --z-modal: 1000;
 }
-
-/* =====================================================
-   BACKGROUND (SYSTEM DEPTH)
-===================================================== */
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, system-ui, sans-serif;
-  background:
-    radial-gradient(1200px 900px at 15% -25%, rgba(255,255,255,0.14), transparent 60%),
-    radial-gradient(900px 700px at 90% 15%, rgba(255,255,255,0.10), transparent 55%),
-    linear-gradient(180deg, #0c0e13, #08090c);
-  color: var(--text-main);
-  min-height: 100vh;
+  background: #0a0b0e;
+  /* Перспектива для 3D-эффектов */
+  perspective: 1000px;
+  overflow-x: hidden;
 }
 
-/* =====================================================
-   APP WRAPPER
-===================================================== */
-
-.app {
-  padding: 3rem 1.2rem;
+/* Жидкое стекло с эффектом текучести */
+.glass-card {
+  background: rgba(255, 255, 255, calc(0.1 * var(--glass-density)));
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 32px;
+  
+  /* Трансформация для 3D-эффекта */
+  transform: translateZ(calc(20px * var(--z-base)));
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+  
+  /* Эффект "жидкости" при hover */
+  transition: backdrop-filter 0.5s ease, transform 0.3s ease;
 }
 
-/* =====================================================
-   MAIN CONTAINER — SYSTEM SHEET
-===================================================== */
-
-.container {
-  max-width: 1080px;
-  margin: 0 auto;
-
-  background: linear-gradient(
-    180deg,
-    var(--glass-ultra),
-    var(--glass-soft)
-  );
-
-  backdrop-filter: var(--blur-ultra);
-  -webkit-backdrop-filter: var(--blur-ultra);
-
-  border-radius: 36px;
-  border: 1px solid var(--border-strong);
-  box-shadow: var(--shadow-sheet);
-
-  overflow: hidden;
+.glass-card:hover {
+  backdrop-filter: blur(30px) saturate(200%);
+  transform: translateZ(calc(30px * var(--z-base))) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* =====================================================
-   HEADER — SETTINGS STYLE
-===================================================== */
-
-.header {
-  padding: 4rem 3rem 2.8rem;
-  text-align: center;
-
-  background: var(--glass-strong);
-  backdrop-filter: var(--blur-strong);
-  -webkit-backdrop-filter: var(--blur-strong);
-
-  border-bottom: 1px solid var(--border-soft);
+/* Живая типографика */
+h1 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  
+  /* Переменный шрифт */
+  font-variation-settings: "wght" 700, "wdth" 100;
+  transition: font-variation-settings 0.3s ease;
 }
 
-.name {
-  font-size: 3.2rem;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-}
-
-.title {
-  margin-top: 0.5rem;
-  font-size: 1.05rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-}
-
-/* =====================================================
-   CONTENT
-===================================================== */
-
-.main-content {
-  padding: 3.6rem;
-}
-
-section {
-  margin-bottom: 4rem;
-}
-
-.section-title {
-  font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin-bottom: 1.8rem;
-}
-
-/* =====================================================
-   CARD BASE — SYSTEM CELL
-===================================================== */
-
-.about-text,
-.skill-category,
-.job,
-.education-item,
-.contact-item {
-  background: var(--glass);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
-
-  border-radius: 28px;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-card);
-}
-
-/* =====================================================
-   ABOUT
-===================================================== */
-
-.about-text {
-  padding: 2.2rem;
-  font-size: 1.05rem;
-  color: var(--text-sub);
-}
-
-/* =====================================================
-   SKILLS
-===================================================== */
-
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.skill-category {
-  padding: 2rem;
-}
-
-.skill-category-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1.2rem;
-}
-
-.skill-item {
-  font-size: 0.95rem;
-  color: var(--text-sub);
-  padding: 0.4rem 0;
-}
-
-/* =====================================================
-   EXPERIENCE
-===================================================== */
-
-.job {
-  padding: 2rem;
-}
-
-.job-title {
-  font-size: 1.3rem;
-  font-weight: 600;
-}
-
-.job-company {
-  color: var(--accent);
-}
-
-.job-period {
-  font-size: 0.85rem;
-  color: var(--text-dim);
-}
-
-/* =====================================================
-   EDUCATION
-===================================================== */
-
-.education-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-}
-
-.education-item {
-  padding: 2rem;
-}
-
-.institution {
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.degree {
-  color: var(--accent);
-}
-
-/* =====================================================
-   CONTACT
-===================================================== */
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.6rem;
-}
-
-.contact-item {
-  padding: 1.8rem;
-  text-align: center;
-}
-
-.contact-type {
-  font-size: 0.75rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 0.5rem;
-}
-
-.contact-link,
-.contact-value {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.footer {
-  padding: 2.6rem;
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-dim);
-
-  background: var(--glass-soft);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
-
-  border-top: 1px solid var(--border-soft);
-}
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 768px) {
-  .main-content {
-    padding: 2.2rem;
-  }
-
-  .name {
-    font-size: 2.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-content {
-    padding: 1.6rem;
-  }
-
-  .name {
-    font-size: 2.1rem;
-  }
+h1:hover {
+  font-variation-settings: "wght" 800, "wdth" 110;
 }

@@ -11,7 +11,7 @@ import './App.css';
 const App: React.FC = () => {
   // Данные для компонентов
   const headerData = {
-    name: 'Роман Горбач',
+    name: 'Roman Gorbach',
     title: 'Frontend Developer / DevOps'
   };
 
