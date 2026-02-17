@@ -1,6 +1,6 @@
-/* =========================
+/* ======================================================
    RESET
-========================= */
+====================================================== */
 
 * {
   margin: 0;
@@ -8,179 +8,207 @@
   box-sizing: border-box;
 }
 
-/* =========================
-   iOS LIQUID GLASS TOKENS
-========================= */
+/* ======================================================
+   iOS 26 SYSTEM TOKENS (Liquid Glass 2.0)
+====================================================== */
 
 :root {
-  --bg-base: #0f1115;
+  /* Base */
+  --bg-base: #0c0e12;
 
-  --glass-bg: rgba(255, 255, 255, 0.08);
-  --glass-bg-strong: rgba(255, 255, 255, 0.12);
-  --glass-border: rgba(255, 255, 255, 0.18);
+  /* Glass layers */
+  --glass-ultra: rgba(255, 255, 255, 0.14);
+  --glass-strong: rgba(255, 255, 255, 0.10);
+  --glass-soft: rgba(255, 255, 255, 0.07);
 
-  --blur-strong: blur(24px) saturate(180%);
+  --glass-border-strong: rgba(255, 255, 255, 0.22);
+  --glass-border-soft: rgba(255, 255, 255, 0.14);
+
+  /* Blur */
+  --blur-ultra: blur(30px) saturate(190%);
+  --blur-strong: blur(22px) saturate(180%);
   --blur-soft: blur(14px) saturate(160%);
 
-  --shadow-soft:
-    0 8px 24px rgba(0, 0, 0, 0.35),
+  /* Shadows (Apple-like depth) */
+  --shadow-elevated:
+    0 20px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  --shadow-card:
+    0 10px 24px rgba(0, 0, 0, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
 
-  --text-primary: rgba(255, 255, 255, 0.95);
-  --text-secondary: rgba(255, 255, 255, 0.65);
-  --text-muted: rgba(255, 255, 255, 0.45);
+  /* Text */
+  --text-primary: rgba(255, 255, 255, 0.96);
+  --text-secondary: rgba(255, 255, 255, 0.70);
+  --text-muted: rgba(255, 255, 255, 0.46);
 
-  --accent: rgba(90, 170, 255, 0.9);
+  /* Accent (system blue, muted) */
+  --accent: rgba(96, 172, 255, 0.95);
 }
 
-/* =========================
-   BODY / BACKGROUND
-========================= */
+/* ======================================================
+   BODY / SYSTEM BACKGROUND
+====================================================== */
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Text",
+    "Inter",
+    system-ui,
+    sans-serif;
 
   background:
-    radial-gradient(1200px 800px at 20% -10%, rgba(255, 255, 255, 0.06), transparent 60%),
-    radial-gradient(900px 600px at 90% 20%, rgba(255, 255, 255, 0.04), transparent 60%),
-    var(--bg-base);
+    radial-gradient(1200px 800px at 15% -10%, rgba(255,255,255,0.08), transparent 60%),
+    radial-gradient(900px 600px at 85% 20%, rgba(255,255,255,0.05), transparent 60%),
+    linear-gradient(180deg, #0d0f14 0%, #0a0c10 100%);
 
   color: var(--text-primary);
   min-height: 100vh;
-  line-height: 1.6;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-/* =========================
+/* ======================================================
    APP WRAPPER
-========================= */
+====================================================== */
 
 .app {
   min-height: 100vh;
-  padding: 2rem 1rem;
+  padding: 2.5rem 1.2rem;
 }
 
-/* =========================
-   MAIN CONTAINER (GLASS)
-========================= */
+/* ======================================================
+   MAIN CONTAINER (SYSTEM GLASS)
+====================================================== */
 
 .container {
-  max-width: 1000px;
+  max-width: 1040px;
   margin: 0 auto;
 
-  background: var(--glass-bg);
-  backdrop-filter: var(--blur-strong);
-  -webkit-backdrop-filter: var(--blur-strong);
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.16),
+    rgba(255,255,255,0.06)
+  );
 
-  border-radius: 28px;
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-soft);
+  backdrop-filter: var(--blur-ultra);
+  -webkit-backdrop-filter: var(--blur-ultra);
+
+  border-radius: 32px;
+  border: 1px solid var(--glass-border-strong);
+  box-shadow: var(--shadow-elevated);
 
   overflow: hidden;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* ======================================================
+   HEADER (SYSTEM SHEET)
+====================================================== */
 
 .header {
-  padding: 3rem 2rem 2rem;
+  padding: 3.5rem 2.5rem 2.4rem;
   text-align: center;
 
-  background: var(--glass-bg-strong);
-  backdrop-filter: var(--blur-soft);
-  -webkit-backdrop-filter: var(--blur-soft);
+  background: var(--glass-ultra);
+  backdrop-filter: var(--blur-strong);
+  -webkit-backdrop-filter: var(--blur-strong);
 
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border-soft);
 }
 
 .name {
-  font-size: 2.8rem;
+  font-size: 3rem;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
+  letter-spacing: -0.022em;
+  margin-bottom: 0.6rem;
 }
 
 .title {
   font-size: 1.05rem;
-  font-weight: 400;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
-/* =========================
+/* ======================================================
    MAIN CONTENT
-========================= */
+====================================================== */
 
 .main-content {
-  padding: 2.5rem;
+  padding: 3rem 3rem 3.5rem;
 }
 
-/* =========================
+/* ======================================================
    SECTIONS
-========================= */
+====================================================== */
 
 section {
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
 }
 
 .section-title {
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  letter-spacing: -0.015em;
+  margin-bottom: 1.6rem;
 }
 
-/* =========================
-   GLASS CARD BASE
-========================= */
+/* ======================================================
+   SYSTEM GLASS CARD (BASE)
+====================================================== */
 
 .about-text,
 .skill-category,
 .job,
 .education-item,
 .contact-item {
-  background: var(--glass-bg);
+  background: var(--glass-soft);
   backdrop-filter: var(--blur-soft);
   -webkit-backdrop-filter: var(--blur-soft);
+border-radius: 24px;
+  border: 1px solid var(--glass-border-soft);
+  box-shadow: var(--shadow-card);
 
-  border-radius: 22px;
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-soft);
-
-  transition: transform 0.25s ease;
+  transition:
+    transform 0.28s cubic-bezier(.2,.8,.2,1),
+    box-shadow 0.28s cubic-bezier(.2,.8,.2,1);
 }
 
+/* iOS hover lift */
 .about-text:hover,
 .skill-category:hover,
 .job:hover,
 .education-item:hover,
 .contact-item:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
 }
 
-/* =========================
+/* ======================================================
    ABOUT
-========================= */
+====================================================== */
 
 .about-text {
-  padding: 1.5rem;
+  padding: 1.8rem;
   font-size: 1.05rem;
   color: var(--text-secondary);
 }
 
-/* =========================
+/* ======================================================
    SKILLS
-========================= */
+====================================================== */
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.6rem;
 }
 
 .skill-category {
-  padding: 1.5rem;
+  padding: 1.6rem;
 }
 
 .skill-category-title {
@@ -189,40 +217,37 @@ section {
   margin-bottom: 1rem;
 }
 
-.skill-list {
-  list-style: none;
-}
-
 .skill-item {
   font-size: 0.95rem;
   color: var(--text-secondary);
-  padding: 0.4rem 0;
+  padding: 0.35rem 0;
 }
 
-/* =========================
+/* ======================================================
    EXPERIENCE
-========================= */
+====================================================== */
 
 .job {
-  padding: 1.5rem;
+  padding: 1.6rem;
 }
 
 .job-header {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.9rem;
 }
 
 .job-title {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
 .job-company {
   color: var(--accent);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
+
 .job-period {
   margin-left: auto;
   font-size: 0.85rem;
@@ -239,22 +264,22 @@ section {
   margin-bottom: 0.4rem;
 }
 
-/* =========================
+/* ======================================================
    EDUCATION
-========================= */
+====================================================== */
 
 .education-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.6rem;
 }
 
 .education-item {
-  padding: 1.5rem;
+  padding: 1.6rem;
 }
 
 .institution {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 600;
 }
 
@@ -268,27 +293,27 @@ section {
   color: var(--text-muted);
 }
 
-/* =========================
+/* ======================================================
    CONTACT
-========================= */
+====================================================== */
 
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
 }
 
 .contact-item {
-  padding: 1.2rem;
+  padding: 1.4rem;
   text-align: center;
 }
 
 .contact-type {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  margin-bottom: 0.3rem;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
 }
 
 .contact-link,
@@ -298,38 +323,38 @@ section {
   text-decoration: none;
 }
 
-/* =========================
+/* ======================================================
    FOOTER
-========================= */
+====================================================== */
 
 .footer {
-  padding: 2rem;
+  padding: 2.2rem;
   text-align: center;
   font-size: 0.9rem;
   color: var(--text-muted);
 
-  background: var(--glass-bg);
+  background: var(--glass-soft);
   backdrop-filter: var(--blur-soft);
   -webkit-backdrop-filter: var(--blur-soft);
 
-  border-top: 1px solid var(--glass-border);
+  border-top: 1px solid var(--glass-border-soft);
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* ======================================================
+   RESPONSIVE (iOS-like scaling)
+====================================================== */
 
 @media (max-width: 768px) {
   .main-content {
-    padding: 1.5rem;
+    padding: 2rem;
   }
 
   .name {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
   }
 
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 
   .job-header {
@@ -343,11 +368,11 @@ section {
 }
 
 @media (max-width: 480px) {
-  .name {
-    font-size: 1.9rem;
+  .main-content {
+    padding: 1.6rem;
   }
 
-  .main-content {
-    padding: 1.2rem;
+  .name {
+    font-size: 2rem;
   }
 }
