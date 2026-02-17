@@ -156,6 +156,7 @@
     background: var(--gray-50);
     max-width: 360px;
     width: 100%;
+    padding: 40px;
 }
 
 .login__header {
