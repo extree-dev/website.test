@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="app">
       <div className={`hero ${visible ? 'visible' : ''}`}>
-        <h1>Привет, я <span className="gradient-text">Роман</span></h1>
+        <h1>Привет, я <span className="gradient-text">Роман1</span></h1>
         <p className="subtitle">Разработчик / Создатель / Энтузиаст</p>
         <div className="buttons">
           <a href="#contact" className="btn primary">Связаться</a>
