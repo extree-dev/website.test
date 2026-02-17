@@ -1,369 +1,308 @@
-/* ======================================================
-   RESET
-====================================================== */
 
+/* =====================================================
+   iOS SYSTEM GLASS — UNIFIED (ALL MODES)
+   Settings • Control Center • VisionOS
+===================================================== */
+
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ======================================================
-   iOS 26 SYSTEM TOKENS (Liquid Glass 2.0)
-====================================================== */
+/* =====================================================
+   SYSTEM TOKENS
+===================================================== */
 
 :root {
   /* Base */
-  --bg-base: #0c0e12;
+  --bg: #0a0b0e;
 
-  /* Glass layers */
-  --glass-ultra: rgba(255, 255, 255, 0.14);
-  --glass-strong: rgba(255, 255, 255, 0.10);
-  --glass-soft: rgba(255, 255, 255, 0.07);
+  /* Glass */
+  --glass-ultra: rgba(255,255,255,0.20);
+  --glass-strong: rgba(255,255,255,0.14);
+  --glass: rgba(255,255,255,0.10);
+  --glass-soft: rgba(255,255,255,0.06);
 
-  --glass-border-strong: rgba(255, 255, 255, 0.22);
-  --glass-border-soft: rgba(255, 255, 255, 0.14);
+  /* Borders */
+  --border-strong: rgba(255,255,255,0.32);
+  --border: rgba(255,255,255,0.22);
+  --border-soft: rgba(255,255,255,0.14);
 
   /* Blur */
-  --blur-ultra: blur(30px) saturate(190%);
-  --blur-strong: blur(22px) saturate(180%);
-  --blur-soft: blur(14px) saturate(160%);
+  --blur-ultra: blur(34px) saturate(200%);
+  --blur-strong: blur(24px) saturate(180%);
+  --blur: blur(16px) saturate(160%);
 
-  /* Shadows (Apple-like depth) */
-  --shadow-elevated:
-    0 20px 40px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  /* Shadows */
+  --shadow-sheet:
+    0 40px 80px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.12);
 
   --shadow-card:
-    0 10px 24px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 14px 32px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.08);
 
   /* Text */
-  --text-primary: rgba(255, 255, 255, 0.96);
-  --text-secondary: rgba(255, 255, 255, 0.70);
-  --text-muted: rgba(255, 255, 255, 0.46);
+  --text-main: rgba(255,255,255,0.96);
+  --text-sub: rgba(255,255,255,0.70);
+  --text-dim: rgba(255,255,255,0.46);
 
-  /* Accent (system blue, muted) */
-  --accent: rgba(96, 172, 255, 0.95);
+  /* Accent */
+  --accent: #5fa8ff;
 }
 
-/* ======================================================
-   BODY / SYSTEM BACKGROUND
-====================================================== */
+/* =====================================================
+   BACKGROUND (SYSTEM DEPTH)
+===================================================== */
 
 body {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Pro Text",
-    "Inter",
-    system-ui,
-    sans-serif;
-
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, system-ui, sans-serif;
   background:
-    radial-gradient(1200px 800px at 15% -10%, rgba(255,255,255,0.08), transparent 60%),
-    radial-gradient(900px 600px at 85% 20%, rgba(255,255,255,0.05), transparent 60%),
-    linear-gradient(180deg, #0d0f14 0%, #0a0c10 100%);
-
-  color: var(--text-primary);
+    radial-gradient(1200px 900px at 15% -25%, rgba(255,255,255,0.14), transparent 60%),
+    radial-gradient(900px 700px at 90% 15%, rgba(255,255,255,0.10), transparent 55%),
+    linear-gradient(180deg, #0c0e13, #08090c);
+  color: var(--text-main);
   min-height: 100vh;
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
-/* ======================================================
+/* =====================================================
    APP WRAPPER
-====================================================== */
+===================================================== */
 
 .app {
-  min-height: 100vh;
-  padding: 2.5rem 1.2rem;
+  padding: 3rem 1.2rem;
 }
 
-/* ======================================================
-   MAIN CONTAINER (SYSTEM GLASS)
-====================================================== */
+/* =====================================================
+   MAIN CONTAINER — SYSTEM SHEET
+===================================================== */
 
 .container {
-  max-width: 1040px;
+  max-width: 1080px;
   margin: 0 auto;
 
   background: linear-gradient(
     180deg,
-    rgba(255,255,255,0.16),
-    rgba(255,255,255,0.06)
+    var(--glass-ultra),
+    var(--glass-soft)
   );
 
   backdrop-filter: var(--blur-ultra);
   -webkit-backdrop-filter: var(--blur-ultra);
 
-  border-radius: 32px;
-  border: 1px solid var(--glass-border-strong);
-  box-shadow: var(--shadow-elevated);
+  border-radius: 36px;
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-sheet);
 
   overflow: hidden;
 }
 
-/* ======================================================
-   HEADER (SYSTEM SHEET)
-====================================================== */
+/* =====================================================
+   HEADER — SETTINGS STYLE
+===================================================== */
 
 .header {
-  padding: 3.5rem 2.5rem 2.4rem;
+  padding: 4rem 3rem 2.8rem;
   text-align: center;
 
-  background: var(--glass-ultra);
+  background: var(--glass-strong);
   backdrop-filter: var(--blur-strong);
   -webkit-backdrop-filter: var(--blur-strong);
 
-  border-bottom: 1px solid var(--glass-border-soft);
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .name {
-  font-size: 3rem;
+  font-size: 3.2rem;
   font-weight: 600;
-  letter-spacing: -0.022em;
-  margin-bottom: 0.6rem;
+  letter-spacing: -0.03em;
 }
 
 .title {
+  margin-top: 0.5rem;
   font-size: 1.05rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--text-dim);
 }
 
-/* ======================================================
-   MAIN CONTENT
-====================================================== */
+/* =====================================================
+   CONTENT
+===================================================== */
 
 .main-content {
-  padding: 3rem 3rem 3.5rem;
+  padding: 3.6rem;
 }
 
-/* ======================================================
-   SECTIONS
-====================================================== */
-
 section {
-  margin-bottom: 3.5rem;
+  margin-bottom: 4rem;
 }
 
 .section-title {
-  font-size: 1.9rem;
+  font-size: 2rem;
   font-weight: 600;
-  letter-spacing: -0.015em;
-  margin-bottom: 1.6rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.8rem;
 }
 
-/* ======================================================
-   SYSTEM GLASS CARD (BASE)
-====================================================== */
+/* =====================================================
+   CARD BASE — SYSTEM CELL
+===================================================== */
 
 .about-text,
 .skill-category,
 .job,
 .education-item,
 .contact-item {
-  background: var(--glass-soft);
-  backdrop-filter: var(--blur-soft);
-  -webkit-backdrop-filter: var(--blur-soft);
-border-radius: 24px;
-  border: 1px solid var(--glass-border-soft);
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+
+  border-radius: 28px;
+  border: 1px solid var(--border);
   box-shadow: var(--shadow-card);
-
-  transition:
-    transform 0.28s cubic-bezier(.2,.8,.2,1),
-    box-shadow 0.28s cubic-bezier(.2,.8,.2,1);
 }
 
-/* iOS hover lift */
-.about-text:hover,
-.skill-category:hover,
-.job:hover,
-.education-item:hover,
-.contact-item:hover {
-  transform: translateY(-4px);
-}
-
-/* ======================================================
+/* =====================================================
    ABOUT
-====================================================== */
+===================================================== */
 
 .about-text {
-  padding: 1.8rem;
+  padding: 2.2rem;
   font-size: 1.05rem;
-  color: var(--text-secondary);
+  color: var(--text-sub);
 }
 
-/* ======================================================
+/* =====================================================
    SKILLS
-====================================================== */
+===================================================== */
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
 }
 
 .skill-category {
-  padding: 1.6rem;
+  padding: 2rem;
 }
 
 .skill-category-title {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 }
 
 .skill-item {
   font-size: 0.95rem;
-  color: var(--text-secondary);
-  padding: 0.35rem 0;
+  color: var(--text-sub);
+  padding: 0.4rem 0;
 }
 
-/* ======================================================
+/* =====================================================
    EXPERIENCE
-====================================================== */
+===================================================== */
 
 .job {
-  padding: 1.6rem;
-}
-
-.job-header {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-bottom: 0.9rem;
+  padding: 2rem;
 }
 
 .job-title {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 
 .job-company {
   color: var(--accent);
-  font-size: 0.95rem;
 }
 
 .job-period {
-  margin-left: auto;
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: var(--text-dim);
 }
 
-.job-description {
-  list-style: none;
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-}
-
-.job-description li {
-  margin-bottom: 0.4rem;
-}
-
-/* ======================================================
+/* =====================================================
    EDUCATION
-====================================================== */
+===================================================== */
 
 .education-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
 }
 
 .education-item {
-  padding: 1.6rem;
+  padding: 2rem;
 }
 
 .institution {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 600;
 }
 
 .degree {
   color: var(--accent);
-  font-size: 0.95rem;
 }
 
-.period {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-/* ======================================================
+/* =====================================================
    CONTACT
-====================================================== */
+===================================================== */
 
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.6rem;
 }
 
 .contact-item {
-  padding: 1.4rem;
+  padding: 1.8rem;
   text-align: center;
 }
 
 .contact-type {
   font-size: 0.75rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 0.35rem;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
 }
 
 .contact-link,
 .contact-value {
   color: var(--accent);
-  font-weight: 500;
   text-decoration: none;
 }
 
-/* ======================================================
+/* =====================================================
    FOOTER
-====================================================== */
+===================================================== */
 
 .footer {
-  padding: 2.2rem;
+  padding: 2.6rem;
   text-align: center;
   font-size: 0.9rem;
-  color: var(--text-muted);
+  color: var(--text-dim);
 
   background: var(--glass-soft);
-  backdrop-filter: var(--blur-soft);
-  -webkit-backdrop-filter: var(--blur-soft);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
 
-  border-top: 1px solid var(--glass-border-soft);
+  border-top: 1px solid var(--border-soft);
 }
 
-/* ======================================================
-   RESPONSIVE (iOS-like scaling)
-====================================================== */
+/* =====================================================
+   RESPONSIVE
+===================================================== */
 
 @media (max-width: 768px) {
   .main-content {
-    padding: 2rem;
+    padding: 2.2rem;
   }
 
   .name {
-    font-size: 2.4rem;
-  }
-
-  .section-title {
-    font-size: 1.6rem;
-  }
-
-  .job-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .job-period {
-    margin-left: 0;
+    font-size: 2.5rem;
   }
 }
 
@@ -373,6 +312,6 @@ border-radius: 24px;
   }
 
   .name {
-    font-size: 2rem;
+    font-size: 2.1rem;
   }
 }
