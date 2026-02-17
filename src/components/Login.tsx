@@ -12,12 +12,9 @@ const Login: React.FC = () => {
     setIsLoading(true);
     setError('');
 
-    // TODO: подключить к бэкенду
     try {
-      // Имитация запроса
       await new Promise(resolve => setTimeout(resolve, 1500));
       console.log('Login attempt', { email, password });
-      // Здесь будет редирект на дашборд
     } catch (err) {
       setError('Неверный email или пароль');
     } finally {
@@ -27,12 +24,18 @@ const Login: React.FC = () => {
 
   return (
     <div className="login-container">
+      {/* Фоновые градиенты */}
+      <div className="login-bg-gradient"></div>
+      <div className="login-bg-pattern"></div>
+      
       <div className="login-card">
-        {/* Декоративные элементы для глубины */}
-        <div className="glass-orb glass-orb-1"></div>
-        <div className="glass-orb glass-orb-2"></div>
-        
         <div className="login-header">
+          <div className="login-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/>
+              <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="currentColor"/>
+            </svg>
+          </div>
           <h1 className="login-title">Discord Bot Panel</h1>
           <p className="login-subtitle">Управляй своими ботами с комфортом</p>
         </div>
@@ -53,7 +56,7 @@ const Login: React.FC = () => {
           </div>
 
           <div className="input-group">
-            <label htmlFor="password" className="input-label">Пароль</label>
+            <label htmlFor="password" className="input-label">Password</label>
             <input
               type="password"
               id="password"
@@ -76,20 +79,15 @@ const Login: React.FC = () => {
             {isLoading ? (
               <span className="loader"></span>
             ) : (
-              'Войти'
+              'Sign in'
             )}
           </button>
         </form>
 
         <div className="login-footer">
-          <a href="#" className="footer-link">Забыли пароль?</a>
+          <a href="#" className="footer-link">Forgot password?</a>
           <span className="footer-separator">•</span>
-          <a href="#" className="footer-link">Регистрация</a>
-        </div>
-
-        {/* Демо-режим */}
-        <div className="demo-hint">
-          demo: admin@example.com / admin123
+          <a href="#" className="footer-link">Create account</a>
         </div>
       </div>
     </div>

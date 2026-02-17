@@ -1,42 +1,84 @@
+/* =====================================================
+   LOGIN — TRENDS 2026
+   Minimal · Professional · Spatial
+===================================================== */
+
 .login-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background: #0b0b0f;
+  position: relative;
+  background: #0a0a0c;
+  overflow: hidden;
 }
 
+/* Текстурированный фон */
+.login-bg-gradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 30%, #2a2a4a 0%, #0a0a1a 60%);
+  opacity: 0.8;
+}
+
+.login-bg-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Карточка */
 .login-card {
+  position: relative;
+  z-index: 1;
   width: 100%;
-  max-width: 400px;
-  padding: 2rem;
-  background: #13131a;
-  border-radius: 24px;
-  border: 1px solid #2a2a33;
+  max-width: 420px;
+  padding: 2.5rem 2rem;
+  background: rgba(18, 18, 24, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
+/* Хедер */
 .login-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.login-icon {
+  display: inline-flex;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 24px;
+  margin-bottom: 1.5rem;
+  color: #fff;
 }
 
 .login-title {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
+  letter-spacing: -0.02em;
   color: #fff;
   margin-bottom: 0.5rem;
 }
 
 .login-subtitle {
-  color: #8b8b98;
+  color: #8f8fa3;
   font-size: 0.95rem;
+  font-weight: 400;
 }
 
+/* Форма */
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .input-group {
@@ -46,49 +88,57 @@
 }
 
 .input-label {
-  color: #b4b4c0;
-  font-size: 0.9rem;
+  color: #d4d4e0;
+  font-size: 0.85rem;
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-left: 0.25rem;
 }
 
 .input-field {
-  background: #1c1c24;
-  border: 1px solid #2a2a33;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
   padding: 0.9rem 1rem;
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
   outline: none;
-  transition: border-color 0.2s;
 }
 
 .input-field:focus {
-  border-color: #3b3b4d;
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .input-field::placeholder {
-  color: #4a4a55;
+  color: #5a5a70;
+  font-weight: 300;
 }
 
+/* Кнопка */
 .login-button {
-  background: #2b2b36;
-  color: #fff;
+  background: #fff;
+  color: #0a0a0c;
   border: none;
-  border-radius: 12px;
-  padding: 0.9rem;
-  font-size: 1rem;
-  font-weight: 500;
+  border-radius: 14px;
+  padding: 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
   margin-top: 0.5rem;
+  letter-spacing: 0.3px;
 }
 
 .login-button:hover:not(:disabled) {
-  background: #353540;
+  background: #f0f0ff;
+  transform: scale(1.02);
 }
 
 .login-button:active:not(:disabled) {
-  background: #24242e;
+  transform: scale(0.98);
 }
 
 .login-button:disabled {
@@ -96,68 +146,68 @@
   cursor: not-allowed;
 }
 
-.login-footer {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.footer-link {
-  color: #6b6b7a;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s;
-}
-
-.footer-link:hover {
-  color: #b4b4c0;
-}
-
-.footer-separator {
-  color: #3a3a45;
-}
-
-.error-message {
-  background: #2a1818;
-  border: 1px solid #4a2a2a;
-  border-radius: 8px;
-  padding: 0.75rem;
-  color: #ff8a8a;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
+/* Лоадер */
 .loader {
   display: inline-block;
   width: 18px;
   height: 18px;
-  border: 2px solid #4a4a55;
-  border-top-color: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #0a0a0c;
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  animation: spin 0.6s linear infinite;
 }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 
-.demo-hint {
+/* Ошибка */
+.error-message {
+  background: rgba(255, 70, 70, 0.1);
+  border: 1px solid rgba(255, 70, 70, 0.2);
+  border-radius: 10px;
+  padding: 0.75rem;
+  color: #ff9f9f;
+  font-size: 0.9rem;
   text-align: center;
-  margin-top: 1.5rem;
-  color: #4a4a55;
-  font-size: 0.8rem;
-  font-family: monospace;
-  padding: 0.5rem;
-  border-top: 1px solid #2a2a33;
 }
 
+/* Футер */
+.login-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.footer-link {
+  color: #6b6b8a;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #b4b4d4;
+}
+
+.footer-separator {
+  color: #3a3a4a;
+}
+
+/* Адаптивность */
 @media (max-width: 480px) {
   .login-card {
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
   }
-  
+
   .login-title {
-    font-size: 1.75rem;
+    font-size: 1.6rem;
+  }
+
+  .login-subtitle {
+    font-size: 0.9rem;
   }
 }
