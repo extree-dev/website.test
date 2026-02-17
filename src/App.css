@@ -1,7 +1,6 @@
 /* =====================================================
-   TRENDS 2026 — SPATIAL · MINIMAL · ADAPTIVE
-   Principles: spatial depth, living typography, micro-interactions,
-   neo-minimalism, AI-ready semantics
+   LOGIN — TRENDS 2026
+   Principles: spatial depth, living typography, micro-interactions
 ===================================================== */
 
 * {
@@ -11,7 +10,7 @@
 }
 
 :root {
-  /* Color system — адаптивные оттенки */
+  /* Color system */
   --hue: 220;
   --bg-primary: hsl(var(--hue), 20%, 98%);
   --bg-secondary: hsl(var(--hue), 15%, 95%);
@@ -23,34 +22,21 @@
   --border-light: hsl(var(--hue), 15%, 85%);
   --shadow-color: hsl(var(--hue), 20%, 50%, 0.1);
 
-  /* Пространственные слои */
-  --z-ground: 1;
-  --z-raised: 10;
-  --z-floating: 100;
-
-  /* Типографика */
+  /* Typography */
   --font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   --font-display: 'Inter', var(--font-system);
-  --font-mono: 'SF Mono', 'Fira Code', monospace;
 
-  /* Анимации */
-  --transition-fast: 0.2s cubic-bezier(0.2, 0, 0, 1);
+  /* Animations */
   --transition-base: 0.3s cubic-bezier(0.2, 0, 0, 1);
-  --transition-slow: 0.5s cubic-bezier(0.2, 0, 0, 1);
 
-  /* Тени */
-  --shadow-sm: 0 4px 12px var(--shadow-color);
-  --shadow-md: 0 8px 24px var(--shadow-color);
+  /* Shadows */
   --shadow-lg: 0 20px 40px var(--shadow-color);
 
-  /* Скругления */
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
+  /* Border radius */
   --radius-xl: 32px;
 }
 
-/* Тёмная тема — автоматически */
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-primary: hsl(var(--hue), 20%, 5%);
@@ -63,541 +49,271 @@
   }
 }
 
-/* Accessibility — уважаем настройки */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --transition-fast: 0s;
     --transition-base: 0s;
-    --transition-slow: 0s;
   }
 }
-
-@media (prefers-contrast: more) {
-  :root {
-    --text-primary: #000000;
-    --text-secondary: #222222;
-    --text-tertiary: #444444;
-    --border-light: #666666;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --text-primary: #ffffff;
-      --text-secondary: #eeeeee;
-      --text-tertiary: #cccccc;
-      --border-light: #aaaaaa;
-    }
-  }
-}
-
-/* =====================================================
-   BASE — ПРОСТРАНСТВО И ГЛУБИНА
-===================================================== */
 
 body {
   font-family: var(--font-system);
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  transition: background-color var(--transition-base), color var(--transition-base);
-}
-
-/* Лёгкий градиент фона для глубины */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at 30% 40%, var(--accent-soft) 0%, transparent 40%),
-              radial-gradient(circle at 70% 80%, var(--accent-soft) 0%, transparent 40%);
-  opacity: 0.3;
-  pointer-events: none;
-  z-index: -1;
 }
 
 /* =====================================================
-   APP — ЦЕНТРИРОВАНИЕ И ВОЗДУХ
+   LOGIN CONTAINER
 ===================================================== */
 
-.app {
+.login-container {
   min-height: 100vh;
-  padding: clamp(1rem, 4vw, 3rem);
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* =====================================================
-   MAIN CONTAINER — СИСТЕМНЫЙ ЛИСТ С ПРОСТРАНСТВОМ
-===================================================== */
-
-.container {
-  max-width: 1000px;
-  width: 100%;
-  margin: 0 auto;
-  background-color: var(--bg-secondary);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
-  overflow: hidden;
-  transform: translateZ(0);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
-}
-
-.container:hover {
-  box-shadow: var(--shadow-lg), 0 30px 60px var(--shadow-color);
-  transform: translateY(-2px);
-}
-
-/* =====================================================
-   HEADER — АВТОРСКИЙ БЛОК
-===================================================== */
-
-.header {
-  padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 4vw, 3rem);
-  text-align: center;
-  border-bottom: 1px solid var(--border-light);
+  padding: clamp(1rem, 4vw, 3rem);
   position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, hsl(var(--hue), 30%, 5%), hsl(var(--hue), 25%, 8%));
 }
 
-.name {
+/* Glass orbs for depth */
+.glass-orb {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: orbFloat 20s infinite alternate ease-in-out;
+  z-index: 0;
+}
+
+.glass-orb-1 {
+  top: -100px;
+  right: -100px;
+  background: radial-gradient(circle at 30% 30%, var(--accent), transparent 70%);
+  opacity: 0.3;
+}
+
+.glass-orb-2 {
+  bottom: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at 70% 70%, hsl(var(--hue), 60%, 60%), transparent 70%);
+  opacity: 0.25;
+}
+
+@keyframes orbFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, 30px) scale(1.1); }
+}
+
+/* =====================================================
+   LOGIN CARD — ЖИДКОЕ СТЕКЛО
+===================================================== */
+
+.login-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  padding: 2.5rem 2rem;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: transform var(--transition-base);
+}
+
+.login-card:hover {
+  transform: translateY(-4px);
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.login-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-size: clamp(2rem, 5vw, 2.2rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, var(--text-primary), var(--accent));
+  background: linear-gradient(135deg, #fff, var(--accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin-bottom: 0.5rem;
 }
 
-.title {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  font-weight: 400;
+.login-subtitle {
   color: var(--text-tertiary);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-size: 0.95rem;
 }
 
 /* =====================================================
-   CONTENT — СЕКЦИИ
+   FORM
 ===================================================== */
 
-.main-content {
-  padding: clamp(1.5rem, 4vw, 3rem);
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-section {
+.login-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  opacity: 0;
-  animation: fadeUp 0.8s var(--transition-base) forwards;
 }
 
-section:nth-child(1) { animation-delay: 0.1s; }
-section:nth-child(2) { animation-delay: 0.2s; }
-section:nth-child(3) { animation-delay: 0.3s; }
-section:nth-child(4) { animation-delay: 0.4s; }
-section:nth-child(5) { animation-delay: 0.5s; }
-section:nth-child(6) { animation-delay: 0.6s; }
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.section-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-  padding: 0 0.5rem;
-  position: relative;
-  display: inline-block;
-  width: fit-content;
+.input-label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
 }
 
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 0.5rem;
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), transparent);
-  border-radius: 3px;
-  transition: width var(--transition-base);
-}
-
-.section-title:hover::after {
-  width: 80px;
-}
-
-/* =====================================================
-   CARDS — НЕО-МИНИМАЛИЗМ С МИКРО-АНИМАЦИЯМИ
-===================================================== */
-
-.about-text,
-.skill-category,
-.job,
-.education-item,
-.contact-item {
-  background-color: var(--bg-primary);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
+.input-field {
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
-  position: relative;
-  overflow: hidden;
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all var(--transition-base);
+  outline: none;
 }
 
-/* Эффект подложки для глубины */
-.about-text::before,
-.skill-category::before,
-.job::before,
-.education-item::before,
-.contact-item::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 40%, var(--accent-soft) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity var(--transition-base);
-  pointer-events: none;
-}
-
-.about-text:hover,
-.skill-category:hover,
-.job:hover,
-.education-item:hover,
-.contact-item:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: var(--shadow-md);
+.input-field:focus {
   border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(100, 150, 255, 0.2);
 }
 
-.about-text:hover::before,
-.skill-category:hover::before,
-.job:hover::before,
-.education-item:hover::before,
-.contact-item:hover::before {
+.input-field::placeholder {
+  color: var(--text-tertiary);
   opacity: 0.5;
 }
 
-.about-text:active,
-.skill-category:active,
-.job:active,
-.education-item:active,
-.contact-item:active {
-  transform: scale(0.98);
-  transition: transform 0.1s ease;
-}
-
 /* =====================================================
-   SKILLS — СЕТКА
+   BUTTON
 ===================================================== */
 
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-}
-
-.skill-category {
-  padding: 1.5rem;
-}
-
-.skill-category-title {
-  font-size: 1.2rem;
+.login-button {
+  background: linear-gradient(135deg, var(--accent), hsl(var(--hue), 70%, 40%));
+  border: none;
+  border-radius: 20px;
+  padding: 1rem;
+  color: white;
+  font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-}
-
-.skill-item {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  padding: 0.5rem 0;
-  border-bottom: 1px dashed var(--border-light);
-  list-style: none;
-  transition: transform var(--transition-fast), color var(--transition-fast);
-  position: relative;
-  padding-left: 1rem;
-}
-
-.skill-item::before {
-  content: '▹';
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  opacity: 0;
-  transform: translateX(-5px);
-  transition: opacity var(--transition-fast), transform var(--transition-fast);
-}
-
-.skill-item:hover {
-  color: var(--accent);
-  transform: translateX(5px);
-}
-
-.skill-item:hover::before {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.skill-item:last-child {
-  border-bottom: none;
-}
-
-/* =====================================================
-   EXPERIENCE
-===================================================== */
-
-.job {
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.job:last-child {
-  margin-bottom: 0;
-}
-
-.job-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.5rem 1rem;
-  margin-bottom: 1rem;
-}
-
-.job-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.job-company {
-  color: var(--accent);
-  font-weight: 500;
-  font-size: 0.95rem;
-  background-color: var(--bg-secondary);
-  padding: 0.2rem 0.8rem;
-  border-radius: 30px;
-  border: 1px solid var(--border-light);
-}
-
-.job-period {
-  font-size: 0.85rem;
-  color: var(--text-tertiary);
-  margin-left: auto;
-  background-color: var(--bg-primary);
-  padding: 0.2rem 0.8rem;
-  border-radius: 30px;
-  border: 1px solid var(--border-light);
-}
-
-.job-description {
-  list-style: none;
-}
-
-.job-description li {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  margin-bottom: 0.5rem;
-  padding-left: 1.25rem;
-  position: relative;
-}
-
-.job-description li::before {
-  content: '—';
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  opacity: 0.6;
-}
-
-/* =====================================================
-   EDUCATION
-===================================================== */
-
-.education-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-}
-
-.education-item {
-  padding: 1.5rem;
-}
-
-.institution {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-  color: var(--text-primary);
-}
-
-.degree {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  margin-bottom: 0.5rem;
-}
-
-.period {
-  font-size: 0.85rem;
-  color: var(--text-tertiary);
-  background-color: var(--bg-secondary);
-  padding: 0.2rem 0.8rem;
-  border-radius: 30px;
-  border: 1px solid var(--border-light);
-  display: inline-block;
-}
-
-/* =====================================================
-   CONTACT — ССЫЛКИ
-===================================================== */
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-}
-
-.contact-item {
-  text-align: center;
-  padding: 1.25rem;
   cursor: pointer;
-}
-
-.contact-type {
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  margin-bottom: 0.35rem;
-}
-
-.contact-link,
-.contact-value {
-  color: var(--text-primary);
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: color var(--transition-fast);
-  display: inline-block;
+  transition: all var(--transition-base);
   position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.contact-link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background-color: var(--accent);
-  transition: width var(--transition-base);
+.login-button:hover:not(:disabled) {
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 50, 100, 0.3);
 }
 
-.contact-link:hover {
+.login-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Loader */
+.loader {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error */
+.error-message {
+  background: rgba(255, 80, 80, 0.1);
+  border: 1px solid rgba(255, 80, 80, 0.2);
+  border-radius: 12px;
+  padding: 0.8rem;
+  color: #ffa0a0;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.login-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.footer-link {
+  color: var(--text-tertiary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color var(--transition-base);
+}
+
+.footer-link:hover {
   color: var(--accent);
 }
 
-.contact-link:hover::after {
-  width: 100%;
-}
-
-/* =====================================================
-   FOOTER — ЛЁГКИЙ И ВОЗДУШНЫЙ
-===================================================== */
-
-.footer {
-  padding: 2rem;
-  text-align: center;
-  font-size: 0.85rem;
+.footer-separator {
   color: var(--text-tertiary);
-  border-top: 1px solid var(--border-light);
-  background-color: var(--bg-primary);
+  opacity: 0.3;
+}
+
+/* Demo hint */
+.demo-hint {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--text-tertiary);
+  font-size: 0.8rem;
+  font-family: monospace;
+  padding: 0.5rem;
+  border-top: 1px dashed var(--border-light);
+  opacity: 0.7;
 }
 
 /* =====================================================
-   RESPONSIVE — АДАПТИВНОСТЬ
+   RESPONSIVE
 ===================================================== */
 
-@media (max-width: 768px) {
-  .app {
-    padding: 1rem;
-  }
-
-  .container {
-    border-radius: var(--radius-lg);
-  }
-
-  .header {
+@media (max-width: 480px) {
+  .login-card {
     padding: 2rem 1.5rem;
   }
 
-  .main-content {
-    padding: 1.5rem;
-    gap: 2rem;
-  }
-
-  .job-period {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .section-title::after {
-    left: 0;
+  .glass-orb-1,
+  .glass-orb-2 {
+    width: 200px;
+    height: 200px;
   }
 }
-
-@media (max-width: 480px) {
-  .header {
-    padding: 1.5rem 1rem;
-  }
-
-  .main-content {
-    padding: 1rem;
-  }
-
-  .skills-grid,
-  .education-grid,
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .job-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .job-period {
-    width: auto;
-  }
-}
-
-/* =====================================================
-   AI-READY — СЕМАНТИЧЕСКИЕ ПОДСКАЗКИ
-   (комментарии помогают AI-агентам понимать структуру)
-===================================================== */
-
-/* article.person — основная информация о человеке */
-/* section.skills — навыки */
-/* section.experience — опыт работы */
-/* section.education — образование */
-/* section.contact — контакты */
-/* meta[itemprop] — можно добавить в разметку позже */
