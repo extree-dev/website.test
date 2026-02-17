@@ -1,6 +1,6 @@
 /* =====================================================
-   LOGIN — PROFESSIONAL DISCORD BOT PANEL
-   Clean · Enterprise · 2026
+   LOGIN — VERCEL / RETOOL / LINEAR STYLE
+   Enterprise · Minimal · Precise
 ===================================================== */
 
 * {
@@ -10,26 +10,49 @@
 }
 
 :root {
-  --bg-dark: #0b0c0e;
-  --bg-sidebar: #111214;
-  --bg-card: #16181c;
-  --border: #2a2d34;
-  --text-primary: #e8eaed;
-  --text-secondary: #9aa3b4;
-  --text-muted: #5f687a;
-  --accent: #3b82f6;
-  --accent-hover: #2563eb;
-  --danger: #ef4444;
-  --danger-bg: rgba(239, 68, 68, 0.1);
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-}
+  /* Монохромная палитра */
+  --black: #000000;
+  --white: #ffffff;
+  --gray-50: #f9f9f9;
+  --gray-100: #f5f5f5;
+  --gray-200: #eaeaea;
+  --gray-300: #d4d4d4;
+  --gray-400: #a3a3a3;
+  --gray-500: #737373;
+  --gray-600: #525252;
+  --gray-700: #404040;
+  --gray-800: #262626;
+  --gray-900: #171717;
+  --gray-950: #0a0a0a;
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
-  background: var(--bg-dark);
-  color: var(--text-primary);
+  /* Единственный акцент */
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+
+  /* Система отступов (8px base) */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+
+  /* Типографика */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Text', system-ui, sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', monospace;
+
+  /* Скругления */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  /* Тени */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 /* =====================================================
@@ -37,168 +60,177 @@ body {
 ===================================================== */
 
 .login {
+  min-height: 100vh;
+  background: var(--white);
+}
+
+.login__container {
   display: flex;
   min-height: 100vh;
+  width: 100%;
 }
 
-/* Sidebar */
-.login__sidebar {
-  width: 380px;
-  background: var(--bg-sidebar);
-  border-right: 1px solid var(--border);
+/* Левая панель — продуктовая */
+.login__hero {
+  flex: 1;
+  background: var(--gray-50);
+  border-right: 1px solid var(--gray-200);
   display: flex;
   align-items: center;
-  padding: 2rem;
+  justify-content: center;
+  padding: var(--space-8);
 }
 
-.login__sidebar-content {
-  max-width: 300px;
-  margin: 0 auto;
+.login__hero-content {
+  max-width: 400px;
+  width: 100%;
 }
 
 .login__logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 2rem;
+  gap: var(--space-2);
+  color: var(--gray-900);
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: var(--space-8);
 }
 
-.login__sidebar-title {
-  font-size: 1.75rem;
+.login__hero-title {
+  font-size: 2.5rem;
   font-weight: 600;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--gray-900);
+  margin-bottom: var(--space-4);
 }
 
-.login__sidebar-description {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
+.login__hero-description {
+  color: var(--gray-600);
+  font-size: 0.9375rem;
   line-height: 1.5;
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-8);
 }
 
 .login__features {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-3);
 }
 
 .login__feature-item {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
+  gap: var(--space-3);
+  color: var(--gray-700);
+  font-size: 0.9375rem;
 }
 
 .login__feature-item svg {
-  color: var(--accent);
-  flex-shrink: 0;
+  color: var(--gray-900);
+  width: 20px;
+  height: 20px;
 }
 
-/* Main panel */
-.login__main {
+/* Правая панель — форма */
+.login__form-panel {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: var(--space-8);
+  background: var(--white);
 }
 
-.login__card {
+.login__form-container {
+  max-width: 360px;
   width: 100%;
-  max-width: 400px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 2.5rem;
 }
 
 .login__header {
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-8);
 }
 
 .login__title {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
+  color: var(--gray-900);
+  margin-bottom: var(--space-2);
 }
 
 .login__subtitle {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
+  color: var(--gray-600);
+  font-size: 0.875rem;
 }
 
-/* Form */
+/* Форма */
 .login__form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
 }
 
 .login__field {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .login__label {
-  font-size: 0.85rem;
+  font-size: 0.8125rem;
   font-weight: 500;
-  color: var(--text-secondary);
+  color: var(--gray-700);
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
 
 .login__input {
-  background: var(--bg-dark);
-  border: 1px solid var(--border);
+  background: var(--white);
+  border: 1px solid var(--gray-200);
   border-radius: var(--radius-md);
-  padding: 0.75rem 1rem;
-  color: var(--text-primary);
-  font-size: 0.95rem;
-  transition: all 0.2s;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--gray-900);
+  transition: all 0.15s;
   outline: none;
 }
 
 .login__input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .login__input::placeholder {
-  color: var(--text-muted);
+  color: var(--gray-400);
 }
 
 .login__input:disabled {
-  opacity: 0.5;
+  background: var(--gray-50);
+  border-color: var(--gray-200);
+  color: var(--gray-500);
   cursor: not-allowed;
 }
 
 .login__button {
-  background: var(--accent);
-  color: white;
+  background: var(--gray-900);
+  color: var(--white);
   border: none;
   border-radius: var(--radius-md);
-  padding: 0.875rem;
-  font-size: 0.95rem;
+  padding: 0.625rem;
+  font-size: 0.9375rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s;
-  margin-top: 0.5rem;
+  transition: background 0.15s;
+  margin-top: var(--space-2);
 }
 
 .login__button:hover:not(:disabled) {
-  background: var(--accent-hover);
+  background: var(--gray-800);
 }
 
 .login__button:active:not(:disabled) {
-  transform: translateY(1px);
+  background: var(--gray-950);
 }
 
 .login__button:disabled {
@@ -206,39 +238,44 @@ body {
   cursor: not-allowed;
 }
 
+/* Ошибка */
 .login__error {
-  background: var(--danger-bg);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  border-radius: var(--radius-sm);
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  border-radius: var(--radius-md);
   padding: 0.75rem;
-  color: var(--danger);
-  font-size: 0.9rem;
+  color: #dc2626;
+  font-size: 0.875rem;
   text-align: center;
 }
 
-/* Footer */
+/* Футер */
 .login__footer {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
+  text-align: center;
 }
 
 .login__link {
-  color: var(--text-secondary);
+  color: var(--gray-600);
   text-decoration: none;
-  font-size: 0.85rem;
-  transition: color 0.2s;
+  font-size: 0.875rem;
+  transition: color 0.15s;
 }
 
 .login__link:hover {
-  color: var(--accent);
+  color: var(--gray-900);
 }
 
-.login__separator {
-  color: var(--text-muted);
+.login__link--inline {
+  color: var(--blue-500);
+  font-weight: 500;
+}
+
+.login__link--inline:hover {
+  color: var(--blue-600);
+}
+
+.login__link--small {
+  font-size: 0.8125rem;
 }
 
 /* =====================================================
@@ -246,15 +283,39 @@ body {
 ===================================================== */
 
 @media (max-width: 768px) {
-  .login__sidebar {
-    display: none;
+  .login__container {
+    flex-direction: column;
   }
 
-  .login__main {
-    padding: 1.5rem;
+  .login__hero {
+    border-right: none;
+    border-bottom: 1px solid var(--gray-200);
+    padding: var(--space-8) var(--space-4);
   }
 
-  .login__card {
-    padding: 2rem;
+  .login__hero-content {
+    max-width: 100%;
+  }
+
+  .login__form-panel {
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .login__hero-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login__hero {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .login__hero-title {
+    font-size: 1.75rem;
+  }
+
+  .login__form-container {
+    max-width: 100%;
   }
 }
