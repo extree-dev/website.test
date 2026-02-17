@@ -1,55 +1,713 @@
+/* =====================================================
+   LIQUID GLASS 2026 — SPATIAL UX/UI
+   Living interface with depth, micro-animations & AI-ready
+===================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
-  /* Динамические переменные для AI-персонализации */
-  --glass-density: 0.7; /* Прозрачность можно менять */
-  --animation-intensity: 0.8; /* Интенсивность анимаций */
-  --spacing-unit: clamp(1rem, 2vw, 2rem); /* Адаптивные отступы */
+  /* Динамическая основа — будет меняться через JS/AI */
+  --glass-density: 0.7;        /* 0–1, прозрачность */
+  --blur-intensity: 0.8;       /* 0–1, сила размытия */
+  --animation-speed: 0.8;       /* 0–2, скорость анимаций */
+  --color-temperature: 0;       /* -1 to 1, холодный/тёплый */
+  
+  /* Базовая цветовая гамма (будет смещаться) */
+  --hue-base: 220;              /* Синий оттенок */
+  --hue-shift: calc(var(--hue-base) + (var(--color-temperature) * 30));
+  
+  /* Основные цвета */
+  --bg-start: hsl(var(--hue-shift), 80%, 8%);
+  --bg-end: hsl(var(--hue-shift), 70%, 4%);
+  --glass-base: hsla(var(--hue-shift), 60%, 70%, calc(0.12 * var(--glass-density)));
+  --glass-highlight: hsla(var(--hue-shift), 80%, 80%, calc(0.08 * var(--glass-density)));
+  
+  /* Акцент */
+  --accent: hsl(var(--hue-shift), 85%, 65%);
+  --accent-glow: 0 0 30px hsla(var(--hue-shift), 85%, 65%, 0.5);
+  
+  /* Текст */
+  --text-primary: rgba(255, 255, 255, 0.96);
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-tertiary: rgba(255, 255, 255, 0.4);
   
   /* Пространственные слои */
-  --z-base: 1;
+  --z-ground: 1;
   --z-raised: 10;
-  --z-overlay: 100;
+  --z-floating: 100;
   --z-modal: 1000;
+  
+  /* Единицы */
+  --space-unit: clamp(0.5rem, 1vw, 1rem);
+  --blur-unit: calc(20px * var(--blur-intensity));
 }
+
+/* =====================================================
+   БАЗОВЫЙ СЛОЙ — ЖИВОЙ ФОН С ГЛУБИНОЙ
+===================================================== */
 
 body {
-  background: #0a0b0e;
-  /* Перспектива для 3D-эффектов */
-  perspective: 1000px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: radial-gradient(
+    circle at 20% 30%,
+    var(--bg-start) 0%,
+    var(--bg-end) 100%
+  );
+  color: var(--text-primary);
+  min-height: 100vh;
+  perspective: 1200px;
   overflow-x: hidden;
+  position: relative;
 }
 
-/* Жидкое стекло с эффектом текучести */
-.glass-card {
-  background: rgba(255, 255, 255, calc(0.1 * var(--glass-density)));
-  backdrop-filter: blur(20px) saturate(180%);
+/* Анимированные частицы (AI-динамика) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, hsla(var(--hue-shift), 80%, 60%, 0.15) 0%, transparent 30%),
+    radial-gradient(circle at 80% 70%, hsla(var(--hue-shift), 70%, 50%, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 40% 90%, hsla(var(--hue-shift), 90%, 70%, 0.1) 0%, transparent 35%);
+  pointer-events: none;
+  z-index: 0;
+  animation: particlesShift calc(20s / var(--animation-speed)) ease infinite;
+}
+
+@keyframes particlesShift {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+/* Шум для текстуры (AI-микшер) */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4wMTUiIC8+PC9zdmc+');
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: overlay;
+}
+
+/* =====================================================
+   APP — ГЛАВНЫЙ КОНТЕЙНЕР С 3D-ПРОСТРАНСТВОМ
+===================================================== */
+
+.app {
+  position: relative;
+  z-index: 2;
+  padding: calc(var(--space-unit) * 4);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+
+/* =====================================================
+   MAIN CARD — ЖИДКОЕ СТЕКЛО
+===================================================== */
+
+.container {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  
+  /* Жидкое стекло — многослойное, текучее */
+  background: linear-gradient(
+    145deg,
+    var(--glass-base) 0%,
+    var(--glass-highlight) 50%,
+    transparent 100%
+  );
+  
+  backdrop-filter: blur(var(--blur-unit)) saturate(200%);
+  -webkit-backdrop-filter: blur(var(--blur-unit)) saturate(200%);
+  
+  border-radius: 48px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 32px;
+  box-shadow: 
+    0 40px 80px -20px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   
-  /* Трансформация для 3D-эффекта */
-  transform: translateZ(calc(20px * var(--z-base)));
-  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+  transform: 
+    translateZ(calc(40px * var(--z-ground)))
+    rotateX(2deg);
   
-  /* Эффект "жидкости" при hover */
-  transition: backdrop-filter 0.5s ease, transform 0.3s ease;
+  transition: all calc(0.5s * var(--animation-speed)) cubic-bezier(0.2, 0.8, 0.2, 1);
+  
+  overflow: hidden;
+  position: relative;
+  transform-style: preserve-3d;
 }
 
-.glass-card:hover {
-  backdrop-filter: blur(30px) saturate(200%);
-  transform: translateZ(calc(30px * var(--z-base))) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+/* 3D-подложка (глубина) */
+.container::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: inherit;
+  filter: blur(20px);
+  opacity: 0.3;
+  z-index: -1;
+  transform: translateZ(-20px);
+  border-radius: 56px;
 }
 
-/* Живая типографика */
-h1 {
-  font-size: clamp(2rem, 5vw, 4rem);
+/* Жидкий блик (реагирует на движение мыши) */
+.container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.3) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 5;
+  border-radius: inherit;
+}
+
+.container:hover::after {
+  opacity: 0.6;
+}
+
+/* =====================================================
+   ЖИВОЙ ХЕДЕР — С ЭФФЕКТОМ ПАРЕНИЯ
+===================================================== */
+
+.header {
+  padding: calc(var(--space-unit) * 8) calc(var(--space-unit) * 6) calc(var(--space-unit) * 5);
+  text-align: center;
+  
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(calc(var(--blur-unit) * 0.8));
+  -webkit-backdrop-filter: blur(calc(var(--blur-unit) * 0.8));
+  
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  
+  transform: translateZ(calc(30px * var(--z-raised)));
+  position: relative;
+  z-index: 10;
+}
+
+/* Динамическое имя с градиентом */
+.name {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 700;
-  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: calc(var(--space-unit) * 1);
   
-  /* Переменный шрифт */
-  font-variation-settings: "wght" 700, "wdth" 100;
-  transition: font-variation-settings 0.3s ease;
+  background: linear-gradient(
+    135deg,
+    var(--text-primary) 0%,
+    var(--accent) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  animation: textBreath calc(4s * var(--animation-speed)) ease infinite;
+  display: inline-block;
+  position: relative;
 }
 
-h1:hover {
-  font-variation-settings: "wght" 800, "wdth" 110;
+@keyframes textBreath {
+  0%, 100% {
+    letter-spacing: -0.03em;
+    filter: brightness(1);
+  }
+  50% {
+    letter-spacing: -0.02em;
+    filter: brightness(1.2);
+  }
+}
+
+/* Титул с эффектом появления */
+.title {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-weight: 400;
+  
+  opacity: 0.8;
+  transform: translateY(0);
+  transition: all calc(0.3s * var(--animation-speed)) ease;
+}
+
+.header:hover .title {
+  opacity: 1;
+  letter-spacing: 0.2em;
+}
+
+/* =====================================================
+   КОНТЕНТ — ПРОСТРАНСТВЕННЫЕ СЛОИ
+===================================================== */
+
+.main-content {
+  padding: calc(var(--space-unit) * 6);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-unit) * 8);
+  position: relative;
+  z-index: 5;
+  transform-style: preserve-3d;
+}
+
+section {
+  transform: translateZ(calc(20px * var(--z-ground)));
+  transition: transform calc(0.4s * var(--animation-speed)) ease;
+  opacity: 0;
+  animation: sectionAppear calc(0.8s * var(--animation-speed)) forwards;
+  animation-delay: calc(var(--section-index, 0) * 0.1s);
+}
+
+@keyframes sectionAppear {
+  from {
+    opacity: 0;
+    transform: translateZ(0) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateZ(calc(20px * var(--z-ground))) translateY(0);
+  }
+}
+
+/* Заголовки секций */
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: calc(var(--space-unit) * 3);
+  
+  color: var(--text-primary);
+  position: relative;
+  display: inline-block;
+  transform-origin: left;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  border-radius: 3px;
+  animation: titleLine calc(3s * var(--animation-speed)) ease infinite;
+}
+
+@keyframes titleLine {
+  0%, 100% {
+    width: 60px;
+    opacity: 0.8;
+  }
+  50% {
+    width: 100px;
+    opacity: 1;
+  }
+}
+
+/* =====================================================
+   ЖИДКИЕ КАРТОЧКИ — LAYERED GLASS
+===================================================== */
+
+.about-text,
+.skill-category,
+.job,
+.education-item,
+.contact-item {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, calc(0.08 * var(--glass-density))) 0%,
+    rgba(255, 255, 255, calc(0.03 * var(--glass-density))) 100%
+  );
+  
+  backdrop-filter: blur(calc(var(--blur-unit) * 0.6));
+  -webkit-backdrop-filter: blur(calc(var(--blur-unit) * 0.6));
+  
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 20px 40px -20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  
+  transform: translateZ(calc(10px * var(--z-ground)));
+  transition: all calc(0.3s * var(--animation-speed)) cubic-bezier(0.2, 0.8, 0.2, 1);
+  
+  position: relative;
+  overflow: hidden;
+}
+
+/* Псевдо-элемент для жидкого эффекта */
+.about-text::before,
+.skill-category::before,
+.job::before,
+.education-item::before,
+.contact-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: inherit;
+}
+
+.about-text:hover::before,
+.skill-category:hover::before,
+.job:hover::before,
+.education-item:hover::before,
+.contact-item:hover::before {
+  opacity: 0.8;
+}
+
+/* Эффект парения при наведении */
+.about-text:hover,
+.skill-category:hover,
+.job:hover,
+.education-item:hover,
+.contact-item:hover {
+  transform: 
+    translateZ(calc(30px * var(--z-raised)))
+    translateY(-5px);
+  
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 30px 60px -20px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* =====================================================
+   СЕТКИ
+===================================================== */
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: calc(var(--space-unit) * 3);
+}
+
+.skill-category {
+  padding: calc(var(--space-unit) * 3);
+}
+
+.skill-category-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: calc(var(--space-unit) * 2);
+  color: var(--text-primary);
+}
+
+.skill-item {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  padding: calc(var(--space-unit) * 0.6) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  list-style: none;
+  transition: all 0.2s ease;
+  position: relative;
+  padding-left: 0;
+}
+
+.skill-item:hover {
+  color: var(--text-primary);
+  transform: translateX(8px);
+  border-bottom-color: var(--accent);
+}
+
+/* =====================================================
+   ОПЫТ
+===================================================== */
+
+.job {
+  padding: calc(var(--space-unit) * 3);
+  margin-bottom: calc(var(--space-unit) * 3);
+}
+
+.job:last-child {
+  margin-bottom: 0;
+}
+
+.job-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: calc(var(--space-unit) * 1) calc(var(--space-unit) * 2);
+  margin-bottom: calc(var(--space-unit) * 2);
+}
+
+.job-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.job-company {
+  color: var(--accent);
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem 1rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+}
+
+.job-period {
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+  margin-left: auto;
+}
+
+.job-description {
+  list-style: none;
+}
+
+.job-description li {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.job-description li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+/* =====================================================
+   ОБРАЗОВАНИЕ
+===================================================== */
+
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: calc(var(--space-unit) * 3);
+}
+
+.education-item {
+  padding: calc(var(--space-unit) * 3);
+}
+
+.institution {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--text-primary);
+}
+
+.degree {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.period {
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem 1rem;
+  border-radius: 30px;
+  display: inline-block;
+}
+
+/* =====================================================
+   КОНТАКТЫ
+===================================================== */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: calc(var(--space-unit) * 2.5);
+}
+
+.contact-item {
+  padding: calc(var(--space-unit) * 3);
+  text-align: center;
+  cursor: pointer;
+}
+
+.contact-type {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.contact-item:hover .contact-type {
+  color: var(--accent);
+  letter-spacing: 0.2em;
+}
+
+.contact-link,
+.contact-value {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.contact-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.contact-link:hover {
+  color: var(--accent);
+}
+
+.contact-link:hover::after {
+  width: 100%;
+}
+
+/* =====================================================
+   ФУТЕР — ПРОЗРАЧНЫЙ СЛОЙ
+===================================================== */
+
+.footer {
+  padding: calc(var(--space-unit) * 4);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+  
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(calc(var(--blur-unit) * 0.5));
+  -webkit-backdrop-filter: blur(calc(var(--blur-unit) * 0.5));
+  
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  
+  transform: translateZ(calc(5px * var(--z-ground)));
+}
+
+/* =====================================================
+   МИКРО-ИНТЕРАКЦИИ — ТАКТИЛЬНОСТЬ
+===================================================== */
+
+/* Эффект нажатия */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a, .contact-item {
+  transition: transform calc(0.2s * var(--animation-speed)) ease;
+}
+
+button:active, a:active, .contact-item:active {
+  transform: scale(0.98);
+}
+
+/* =====================================================
+   АДАПТИВНОСТЬ — RESPONSIVE SPATIAL
+===================================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --space-unit: 0.8rem;
+    --blur-intensity: 0.6;
+  }
+  
+  .app {
+    padding: calc(var(--space-unit) * 2);
+  }
+  
+  .container {
+    transform: translateZ(20px) rotateX(1deg);
+  }
+  
+  .main-content {
+    padding: calc(var(--space-unit) * 3);
+  }
+  
+  .job-period {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --space-unit: 0.6rem;
+  }
+  
+  .name {
+    font-size: 2.2rem;
+  }
+  
+  .header {
+    padding: calc(var(--space-unit) * 5) calc(var(--space-unit) * 3) calc(var(--space-unit) * 3);
+  }
+  
+  .skills-grid,
+  .education-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =====================================================
+   AI-ПОДГОТОВКА — ДИНАМИЧЕСКАЯ НАСТРОЙКА
+   (JS будет менять CSS-переменные)
+===================================================== */
+
+/* Адаптация под время суток */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-temperature: -0.2;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-temperature: 0.3;
+  }
+}
+
+/* Адаптация под частоту обновления */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --animation-speed: 0;
+  }
+}
+
+/* Адаптация под контрастность */
+@media (prefers-contrast: more) {
+  :root {
+    --glass-density: 0.9;
+    --text-primary: rgba(255, 255, 255, 1);
+  }
 }
