@@ -43,14 +43,6 @@ const Login: React.FC = () => {
 
     return (
         <div className="login" ref={containerRef}>
-            {/* Фоновый текст (виден на всех этапах) */}
-            <div className="login__background-text">
-                {Array(10).fill(0).map((_, i) => (
-                    <span key={i}>
-                        DISCORD BOT PANEL • DEPLOY • MONITOR • SCALE •{' '}
-                    </span>
-                ))}
-            </div>
 
             <div className="login__container">
                 {/* Левая панель — появляется/исчезает */}
