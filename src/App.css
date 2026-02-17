@@ -1,6 +1,6 @@
 /* =====================================================
-   GLASSMORPHISM 2026 — iOS SYSTEM + CLASSIC GLASS
-   Premium glass effect with vibrant background
+   iOS SYSTEM GLASS — UNIFIED (ALL MODES)
+   Settings • Control Center • VisionOS
 ===================================================== */
 
 /* RESET */
@@ -15,84 +15,55 @@
 ===================================================== */
 
 :root {
-  /* Glass layers */
-  --glass-ultra: rgba(255, 255, 255, 0.22);
-  --glass-strong: rgba(255, 255, 255, 0.16);
-  --glass: rgba(255, 255, 255, 0.10);
-  --glass-soft: rgba(255, 255, 255, 0.05);
+  /* Base */
+  --bg: #0a0b0e;
+
+  /* Glass */
+  --glass-ultra: rgba(255,255,255,0.20);
+  --glass-strong: rgba(255,255,255,0.14);
+  --glass: rgba(255,255,255,0.10);
+  --glass-soft: rgba(255,255,255,0.06);
 
   /* Borders */
-  --border-strong: rgba(255, 255, 255, 0.35);
-  --border: rgba(255, 255, 255, 0.25);
-  --border-soft: rgba(255, 255, 255, 0.15);
+  --border-strong: rgba(255,255,255,0.32);
+  --border: rgba(255,255,255,0.22);
+  --border-soft: rgba(255,255,255,0.14);
 
   /* Blur */
-  --blur-ultra: blur(40px) saturate(220%);
-  --blur-strong: blur(28px) saturate(200%);
-  --blur: blur(20px) saturate(180%);
+  --blur-ultra: blur(34px) saturate(200%);
+  --blur-strong: blur(24px) saturate(180%);
+  --blur: blur(16px) saturate(160%);
 
   /* Shadows */
   --shadow-sheet:
-    0 40px 80px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    0 40px 80px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.12);
 
   --shadow-card:
-    0 20px 40px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    inset 0 0 20px rgba(255, 255, 255, 0.1);
+    0 14px 32px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.08);
 
   /* Text */
-  --text-main: rgba(255, 255, 255, 0.98);
-  --text-sub: rgba(255, 255, 255, 0.82);
-  --text-dim: rgba(255, 255, 255, 0.6);
+  --text-main: rgba(255,255,255,0.96);
+  --text-sub: rgba(255,255,255,0.70);
+  --text-dim: rgba(255,255,255,0.46);
 
   /* Accent */
-  --accent: #7c3aed;
-  --accent-glow: 0 0 20px rgba(124, 58, 237, 0.4);
+  --accent: #5fa8ff;
 }
 
 /* =====================================================
-   VIBRANT GRADIENT BACKGROUND (Glassmorphism style)
+   BACKGROUND (SYSTEM DEPTH)
 ===================================================== */
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, system-ui, sans-serif;
-  background: linear-gradient(
-    135deg,
-    #4158D0 0%,
-    #C850C0 46%,
-    #FFCC70 100%
-  );
-  background-attachment: fixed;
-  background-size: 400% 400%;
-  animation: gradientFlow 15s ease infinite;
+  background:
+    radial-gradient(1200px 900px at 15% -25%, rgba(255,255,255,0.14), transparent 60%),
+    radial-gradient(900px 700px at 90% 15%, rgba(255,255,255,0.10), transparent 55%),
+    linear-gradient(180deg, #0c0e13, #08090c);
   color: var(--text-main);
   min-height: 100vh;
-  position: relative;
-}
-
-@keyframes gradientFlow {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-/* Noise texture overlay */
-body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4wNSIgLz48L3N2Zz4=');
-  opacity: 0.15;
-  z-index: 1;
-  mix-blend-mode: overlay;
 }
 
 /* =====================================================
@@ -101,12 +72,10 @@ body::after {
 
 .app {
   padding: 3rem 1.2rem;
-  position: relative;
-  z-index: 2;
 }
 
 /* =====================================================
-   MAIN CONTAINER — PREMIUM GLASS SHEET
+   MAIN CONTAINER — SYSTEM SHEET
 ===================================================== */
 
 .container {
@@ -114,47 +83,27 @@ body::after {
   margin: 0 auto;
 
   background: linear-gradient(
-    145deg,
-    var(--glass-ultra) 0%,
-    var(--glass-strong) 50%,
-    var(--glass) 100%
+    180deg,
+    var(--glass-ultra),
+    var(--glass-soft)
   );
 
   backdrop-filter: var(--blur-ultra);
   -webkit-backdrop-filter: var(--blur-ultra);
 
-  border-radius: 48px;
+  border-radius: 36px;
   border: 1px solid var(--border-strong);
   box-shadow: var(--shadow-sheet);
 
   overflow: hidden;
-  position: relative;
-  z-index: 3;
-}
-
-/* Inner highlight */
-.container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
-  z-index: 4;
 }
 
 /* =====================================================
-   HEADER — CONTROL CENTER STYLE
+   HEADER — SETTINGS STYLE
 ===================================================== */
 
 .header {
-  padding: 4rem 3rem 3rem;
+  padding: 4rem 3rem 2.8rem;
   text-align: center;
 
   background: var(--glass-strong);
@@ -162,54 +111,20 @@ body::after {
   -webkit-backdrop-filter: var(--blur-strong);
 
   border-bottom: 1px solid var(--border-soft);
-  position: relative;
-  overflow: hidden;
-}
-
-.header::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.2) 0%,
-    transparent 60%
-  );
-  animation: rotate 30s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .name {
-  font-size: 3.5rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.8));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.3);
-  position: relative;
-  display: inline-block;
+  font-size: 3.2rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
 }
 
 .title {
-  margin-top: 0.75rem;
-  font-size: 1.1rem;
-  letter-spacing: 0.2em;
+  margin-top: 0.5rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-dim);
-  font-weight: 400;
 }
 
 /* =====================================================
@@ -217,38 +132,22 @@ body::after {
 ===================================================== */
 
 .main-content {
-  padding: 4rem;
+  padding: 3.6rem;
 }
 
 section {
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
 }
 
 .section-title {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 600;
   letter-spacing: -0.02em;
-  margin-bottom: 2.5rem;
-  color: var(--text-main);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  position: relative;
-  display: inline-block;
-}
-
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), rgba(124, 58, 237, 0.3));
-  border-radius: 3px;
-  box-shadow: var(--accent-glow);
+  margin-bottom: 1.8rem;
 }
 
 /* =====================================================
-   CARD BASE — LUXURY GLASS
+   CARD BASE — SYSTEM CELL
 ===================================================== */
 
 .about-text,
@@ -256,68 +155,13 @@ section {
 .job,
 .education-item,
 .contact-item {
-  background: linear-gradient(
-    145deg,
-    var(--glass-strong) 0%,
-    var(--glass) 100%
-  );
+  background: var(--glass);
   backdrop-filter: var(--blur);
   -webkit-backdrop-filter: var(--blur);
 
-  border-radius: 32px;
+  border-radius: 28px;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-card);
-
-  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Card inner shine */
-.about-text::before,
-.skill-category::before,
-.job::before,
-.education-item::before,
-.contact-item::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.2) 0%,
-    transparent 50%,
-    rgba(0, 0, 0, 0.1) 100%
-  );
-  border-radius: 34px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.about-text:hover::before,
-.skill-category:hover::before,
-.job:hover::before,
-.education-item:hover::before,
-.contact-item:hover::before {
-  opacity: 1;
-}
-
-.about-text:hover,
-.skill-category:hover,
-.job:hover,
-.education-item:hover,
-.contact-item:hover {
-  transform: translateY(-4px) scale(1.02);
-  border-color: var(--border-strong);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  background: linear-gradient(
-    145deg,
-    var(--glass-ultra) 0%,
-    var(--glass-strong) 100%
-  );
 }
 
 /* =====================================================
@@ -325,10 +169,9 @@ section {
 ===================================================== */
 
 .about-text {
-  padding: 2.5rem;
-  font-size: 1.1rem;
+  padding: 2.2rem;
+  font-size: 1.05rem;
   color: var(--text-sub);
-  line-height: 1.7;
 }
 
 /* =====================================================
@@ -342,35 +185,19 @@ section {
 }
 
 .skill-category {
-  padding: 2.5rem;
+  padding: 2rem;
 }
 
 .skill-category-title {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 1.5rem;
-  color: var(--text-main);
-  border-left: 4px solid var(--accent);
-  padding-left: 1rem;
+  margin-bottom: 1.2rem;
 }
 
 .skill-item {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-sub);
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--border-soft);
-  transition: all 0.2s ease;
-  list-style: none;
-}
-
-.skill-item:last-child {
-  border-bottom: none;
-}
-
-.skill-item:hover {
-  color: var(--text-main);
-  transform: translateX(8px);
-  border-bottom-color: var(--accent);
+  padding: 0.4rem 0;
 }
 
 /* =====================================================
@@ -378,68 +205,21 @@ section {
 ===================================================== */
 
 .job {
-  padding: 2.5rem;
-  margin-bottom: 2rem;
-}
-
-.job:last-child {
-  margin-bottom: 0;
-}
-
-.job-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.75rem 1rem;
-  margin-bottom: 1.2rem;
+  padding: 2rem;
 }
 
 .job-title {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  color: var(--text-main);
 }
 
 .job-company {
   color: var(--accent);
-  font-weight: 500;
-  background: rgba(124, 58, 237, 0.15);
-  padding: 0.2rem 1rem;
-  border-radius: 30px;
-  font-size: 0.9rem;
-  border: 1px solid rgba(124, 58, 237, 0.3);
-  backdrop-filter: blur(5px);
 }
 
 .job-period {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-dim);
-  background: rgba(0, 0, 0, 0.2);
-  padding: 0.2rem 1rem;
-  border-radius: 30px;
-  margin-left: auto;
-  border: 1px solid var(--border-soft);
-}
-
-.job-description {
-  list-style: none;
-}
-
-.job-description li {
-  color: var(--text-sub);
-  font-size: 1rem;
-  margin-bottom: 0.6rem;
-  padding-left: 1.5rem;
-  position: relative;
-}
-
-.job-description li::before {
-  content: "→";
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  font-weight: 600;
-  opacity: 0.7;
 }
 
 /* =====================================================
@@ -448,36 +228,21 @@ section {
 
 .education-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
 }
 
 .education-item {
-  padding: 2.5rem;
+  padding: 2rem;
 }
 
 .institution {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  margin-bottom: 0.3rem;
-  color: var(--text-main);
 }
 
 .degree {
   color: var(--accent);
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-.period {
-  font-size: 0.9rem;
-  color: var(--text-dim);
-  background: rgba(0, 0, 0, 0.2);
-  padding: 0.2rem 1rem;
-  border-radius: 30px;
-  display: inline-block;
-  border: 1px solid var(--border-soft);
 }
 
 /* =====================================================
@@ -487,62 +252,26 @@ section {
 .contact-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.8rem;
+  gap: 1.6rem;
 }
 
 .contact-item {
-  padding: 2rem;
+  padding: 1.8rem;
   text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.contact-item::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(
-    circle at center,
-    rgba(124, 58, 237, 0.2) 0%,
-    transparent 70%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.contact-item:hover::after {
-  opacity: 1;
 }
 
 .contact-type {
-  font-size: 0.8rem;
-  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-dim);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .contact-link,
 .contact-value {
-  color: var(--text-main);
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  position: relative;
-  z-index: 2;
-  display: inline-block;
-  padding: 0.25rem 0;
-}
-
-.contact-link:hover {
   color: var(--accent);
-  transform: scale(1.05);
-  text-shadow: 0 0 15px var(--accent);
+  text-decoration: none;
 }
 
 /* =====================================================
@@ -550,36 +279,16 @@ section {
 ===================================================== */
 
 .footer {
-  padding: 3rem;
+  padding: 2.6rem;
   text-align: center;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-dim);
 
-  background: linear-gradient(
-    180deg,
-    var(--glass-soft) 0%,
-    transparent 100%
-  );
+  background: var(--glass-soft);
   backdrop-filter: var(--blur);
   -webkit-backdrop-filter: var(--blur);
 
   border-top: 1px solid var(--border-soft);
-  position: relative;
-}
-
-.footer::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--border-strong),
-    transparent
-  );
 }
 
 /* =====================================================
@@ -587,68 +296,21 @@ section {
 ===================================================== */
 
 @media (max-width: 768px) {
-  .app {
-    padding: 1.5rem 1rem;
-  }
-
-  .container {
-    border-radius: 32px;
-  }
-
   .main-content {
-    padding: 2.5rem;
+    padding: 2.2rem;
   }
 
   .name {
-    font-size: 2.8rem;
-  }
-
-  .section-title {
-    font-size: 1.8rem;
-  }
-
-  .job-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .job-period {
-    margin-left: 0;
+    font-size: 2.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .app {
-    padding: 1rem 0.8rem;
-  }
-
   .main-content {
-    padding: 1.8rem;
+    padding: 1.6rem;
   }
 
   .name {
-    font-size: 2.2rem;
-  }
-
-  .title {
-    font-size: 0.9rem;
-    letter-spacing: 0.15em;
-  }
-
-  .header {
-    padding: 3rem 1.5rem 2rem;
-  }
-
-  .skills-grid,
-  .education-grid,
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .job,
-  .education-item,
-  .contact-item,
-  .skill-category {
-    padding: 1.8rem;
+    font-size: 2.1rem;
   }
 }
