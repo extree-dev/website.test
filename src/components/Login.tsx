@@ -49,9 +49,19 @@ const Login: React.FC = () => {
                 <div
                     className="login__hero"
                     style={{
-                        opacity: scrollProgress < 0.67 ? 1 : 1 - ((scrollProgress - 0.67) * 3),
-                        transform: `translateX(${scrollProgress > 0.33 ? '0' : '-5%'})`,
-                        transition: 'opacity 0.1s linear, transform 0.3s ease'
+                        opacity: scrollProgress < 0.67 ? 1 : 0,
+                        transform: scrollProgress < 0.33
+                            ? 'translateX(0)'
+                            : scrollProgress < 0.67
+                                ? 'translateX(0)'
+                                : 'translateX(-100%)',
+                        transition: 'opacity 0.3s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                        width: scrollProgress < 0.33
+                            ? '100%'
+                            : scrollProgress < 0.67
+                                ? '50%'
+                                : '0%',
+                        pointerEvents: scrollProgress < 0.67 ? 'auto' : 'none'
                     }}
                 >
                     <div className="login__hero-content">
@@ -98,9 +108,19 @@ const Login: React.FC = () => {
                 <div
                     className="login__form-panel"
                     style={{
-                        transform: `translateX(${scrollProgress < 0.33 ? '100%' : scrollProgress > 0.66 ? '0' : '25%'})`,
-                        width: scrollProgress > 0.66 ? '100%' : '50%',
-                        transition: 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.5s ease'
+                        opacity: scrollProgress > 0.33 ? 1 : 0,
+                        transform: scrollProgress < 0.33
+                            ? 'translateX(100%)'
+                            : scrollProgress < 0.67
+                                ? 'translateX(0)'
+                                : 'translateX(0)',
+                        transition: 'opacity 0.3s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                        width: scrollProgress < 0.33
+                            ? '0%'
+                            : scrollProgress < 0.67
+                                ? '50%'
+                                : '100%',
+                        pointerEvents: scrollProgress > 0.33 ? 'auto' : 'none'
                     }}
                 >
                     <div className="login__form-container">
