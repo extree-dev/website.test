@@ -198,44 +198,6 @@
     letter-spacing: 0.3px;
 }
 
-.login__background-text {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    transform: rotate(-15deg) scale(1.5);
-    opacity: 0.02;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--gray-900);
-    white-space: nowrap;
-    user-select: none;
-    font-family: var(--font-mono, 'SF Mono', monospace);
-    letter-spacing: 2px;
-}
-
-.login__background-text span {
-    padding: 0.5rem 0;
-    animation: scrollBackground 60s linear infinite;
-}
-
-@keyframes scrollBackground {
-    from {
-        transform: translateX(-10%);
-    }
-
-    to {
-        transform: translateX(-50%);
-    }
-}
-
 .login__input {
     background: var(--white);
     border: 1px solid var(--gray-200);
