@@ -1,6 +1,6 @@
 /* =====================================================
-   LOGIN — LIQUID GLASS 2026
-   Spatial depth · Micro-interactions · Neo-minimalism
+   LOGIN — LIQUID GLASS 2026 (PREMIUM EDITION)
+   Spatial depth · Multi-layer glass · Glow effects
 ===================================================== */
 
 .login-container {
@@ -11,36 +11,51 @@
   padding: 1.5rem;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2f 100%);
+  background: radial-gradient(circle at 20% 30%, #1a1a3f, #0a0a1a 80%);
 }
 
-/* Анимированные стеклянные сферы для глубины */
+/* =====================================================
+   GLASS ORBS — глубинные слои
+===================================================== */
+
 .glass-orb {
   position: absolute;
-  width: 300px;
-  height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(100, 150, 255, 0.4), transparent 70%);
-  filter: blur(40px);
-  animation: orbFloat 20s infinite alternate ease-in-out;
+  filter: blur(60px);
+  animation: orbFloat 25s infinite alternate ease-in-out;
   z-index: 0;
+  opacity: 0.5;
 }
 
 .glass-orb-1 {
-  top: -100px;
-  right: -100px;
-  background: radial-gradient(circle at 30% 30%, rgba(0, 122, 255, 0.3), transparent 70%);
-  animation-duration: 25s;
+  width: 500px;
+  height: 500px;
+  top: -200px;
+  right: -200px;
+  background: radial-gradient(circle at 30% 30%, #4a6eff, #2a3faa);
+  animation-duration: 30s;
 }
 
 .glass-orb-2 {
-  bottom: -100px;
-  left: -100px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle at 70% 70%, rgba(100, 80, 255, 0.25), transparent 70%);
-  animation-duration: 30s;
+  width: 600px;
+  height: 600px;
+  bottom: -250px;
+  left: -250px;
+  background: radial-gradient(circle at 70% 70%, #aa4aff, #4a1faa);
+  animation-duration: 35s;
   animation-delay: -5s;
+}
+
+.glass-orb-3 {
+  width: 300px;
+  height: 300px;
+  top: 50%;
+  left: 30%;
+  background: radial-gradient(circle at 40% 60%, #ffaa4a, #aa4a2a);
+  opacity: 0.3;
+  filter: blur(80px);
+  animation-duration: 40s;
+  animation-delay: -10s;
 }
 
 @keyframes orbFloat {
@@ -48,98 +63,149 @@
     transform: translate(0, 0) scale(1);
   }
   100% {
-    transform: translate(30px, 30px) scale(1.1);
+    transform: translate(50px, 50px) scale(1.2);
   }
 }
 
-/* Основная карточка — жидкое стекло */
+/* =====================================================
+   LOGIN CARD — многослойное жидкое стекло
+===================================================== */
+
 .login-card {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
-  max-width: 440px;
-  padding: 2.5rem 2rem;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-radius: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 460px;
+  padding: 3rem 2.5rem;
+  
+  /* Основной слой стекла */
+  background: rgba(20, 25, 45, 0.4);
+  backdrop-filter: blur(25px) saturate(200%);
+  -webkit-backdrop-filter: blur(25px) saturate(200%);
+  
+  border-radius: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  
+  /* Многослойная тень */
   box-shadow: 
-    0 30px 60px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    0 40px 80px -20px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 0 40px rgba(100, 150, 255, 0.3);
+  
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+/* Внутреннее свечение (блик) */
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: skewX(-15deg);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
+.login-card:hover::before {
+  left: 100%;
 }
 
 .login-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px) scale(1.02);
   box-shadow: 
-    0 40px 80px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    0 50px 100px -20px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    0 0 60px rgba(100, 150, 255, 0.5);
 }
 
-/* Хедер */
+/* =====================================================
+   HEADER — с акцентным свечением
+===================================================== */
+
 .login-header {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
+  position: relative;
 }
 
 .login-title {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #ffffff, #aaccff);
+  background: linear-gradient(135deg, #ffffff, #b0c8ff, #aaccff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   letter-spacing: -0.02em;
+  filter: drop-shadow(0 0 20px rgba(100, 150, 255, 0.5));
 }
 
 .login-subtitle {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
   font-weight: 400;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Форма */
+/* =====================================================
+   FORM — современные поля
+===================================================== */
+
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .input-label {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: 0.3px;
-  margin-left: 0.5rem;
+  margin-left: 0.75rem;
+  text-transform: uppercase;
+  opacity: 0.8;
 }
 
 .input-field {
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 1rem 1.2rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 28px;
+  padding: 1.2rem 1.5rem;
   color: white;
-  font-size: 1rem;
-  transition: all 0.2s ease;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
   outline: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .input-field:focus {
-  border-color: rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 0 3px rgba(100, 150, 255, 0.2);
+  border-color: #5a8cff;
+  background: rgba(30, 40, 70, 0.5);
+  box-shadow: 
+    0 0 0 3px rgba(90, 140, 255, 0.3),
+    0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .input-field::placeholder {
   color: rgba(255, 255, 255, 0.3);
+  font-weight: 300;
 }
 
 .input-field:disabled {
@@ -147,23 +213,33 @@
   cursor: not-allowed;
 }
 
-/* Кнопка */
+/* =====================================================
+   BUTTON — премиум градиент с эффектами
+===================================================== */
+
 .login-button {
-  background: linear-gradient(135deg, #3a6ea5, #1e3a5f);
+  background: linear-gradient(135deg, #2a4a9a, #1a2a6a, #2a3f8a);
+  background-size: 200% 200%;
   border: none;
-  border-radius: 20px;
-  padding: 1rem;
+  border-radius: 36px;
+  padding: 1.2rem;
   color: white;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: 0.5rem;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 10px 20px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(90, 140, 255, 0.3);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
+/* Анимированный градиент */
 .login-button::before {
   content: '';
   position: absolute;
@@ -171,8 +247,13 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.6s cubic-bezier(0.2, 0.8, 0.4, 1);
 }
 
 .login-button:hover:not(:disabled)::before {
@@ -180,12 +261,16 @@
 }
 
 .login-button:hover:not(:disabled) {
-  transform: scale(1.02);
-  box-shadow: 0 10px 20px rgba(0, 50, 100, 0.3);
+  background: linear-gradient(135deg, #3a5aaa, #2a3a7a, #3a4f9a);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(90, 140, 255, 0.5);
 }
 
 .login-button:active:not(:disabled) {
-  transform: scale(0.98);
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
 
 .login-button:disabled {
@@ -193,87 +278,139 @@
   cursor: not-allowed;
 }
 
-/* Лоадер */
+/* =====================================================
+   LOADER — стильный спиннер
+===================================================== */
+
 .loader {
   display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   border-top-color: white;
+  border-right-color: rgba(255, 255, 255, 0.6);
   animation: spin 0.8s linear infinite;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 
-/* Ошибка */
+/* =====================================================
+   ERROR MESSAGE — с мягким свечением
+===================================================== */
+
 .error-message {
-  background: rgba(255, 80, 80, 0.2);
-  border: 1px solid rgba(255, 80, 80, 0.3);
-  border-radius: 12px;
-  padding: 0.8rem;
-  color: #ffa0a0;
-  font-size: 0.9rem;
+  background: rgba(255, 80, 80, 0.15);
+  border: 1px solid rgba(255, 100, 100, 0.3);
+  border-radius: 24px;
+  padding: 1rem 1.2rem;
+  color: #ffb0b0;
+  font-size: 0.95rem;
   text-align: center;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+  margin-top: 0.5rem;
 }
 
-/* Футер */
+/* =====================================================
+   FOOTER LINKS — минималистично
+===================================================== */
+
 .login-footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: 1.2rem;
+  margin-top: 2.5rem;
 }
 
 .footer-link {
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
   font-size: 0.9rem;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.footer-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, white, transparent);
+  transition: width 0.3s ease;
 }
 
 .footer-link:hover {
   color: white;
-  text-decoration: underline;
-  text-underline-offset: 4px;
+}
+
+.footer-link:hover::after {
+  width: 100%;
 }
 
 .footer-separator {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 1.2rem;
 }
 
-/* Демо-подсказка */
+/* =====================================================
+   DEMO HINT — ненавязчиво
+===================================================== */
+
 .demo-hint {
   text-align: center;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   color: rgba(255, 255, 255, 0.3);
   font-size: 0.8rem;
-  font-family: monospace;
-  padding: 0.5rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  padding: 0.75rem;
   border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.5px;
 }
 
-/* Адаптивность */
+/* =====================================================
+   RESPONSIVE — адаптивность
+===================================================== */
+
 @media (max-width: 480px) {
   .login-card {
     padding: 2rem 1.5rem;
+    border-radius: 32px;
   }
 
   .login-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   .glass-orb-1 {
+    width: 300px;
+    height: 300px;
+  }
+
+  .glass-orb-2 {
+    width: 350px;
+    height: 350px;
+  }
+
+  .glass-orb-3 {
     width: 200px;
     height: 200px;
   }
 
-  .glass-orb-2 {
-    width: 250px;
-    height: 250px;
+  .input-field {
+    padding: 1rem 1.2rem;
+    font-size: 1rem;
+  }
+
+  .login-button {
+    padding: 1rem;
+    font-size: 1.1rem;
   }
 }
