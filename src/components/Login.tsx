@@ -68,7 +68,7 @@ const Login: React.FC = () => {
                     <div className="login__hero-content">
                         <div className="login__brand">
                             <span className="login__brand-dot" />
-                            <span className="login__brand-name">SYNAPSE</span>
+                            <span className="login__brand-name">Discord Bot Panel</span>
                         </div>
 
                         <h1 className="login__title">
