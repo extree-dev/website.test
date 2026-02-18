@@ -56,8 +56,8 @@ const Login: React.FC = () => {
                             scrollProgress < 0.33
                                 ? '100%'
                                 : scrollProgress < 0.67
-                                ? '50%'
-                                : '0%',
+                                    ? '50%'
+                                    : '0%',
                         opacity: scrollProgress < 0.67 ? 1 : 0,
                         transform: scrollProgress >= 0.67 ? 'translateX(-100%)' : 'translateX(0)',
                         pointerEvents: scrollProgress < 0.67 ? 'auto' : 'none',
@@ -88,7 +88,7 @@ const Login: React.FC = () => {
                             <div className="login__metric">
                                 <div className="login__metric-value">SOC2</div>
                                 <div className="login__metric-label">Compliant</div>
-</div>
+                            </div>
                             <div className="login__metric">
                                 <div className="login__metric-value">256-bit</div>
                                 <div className="login__metric-label">Encryption</div>
@@ -122,8 +122,8 @@ const Login: React.FC = () => {
                             scrollProgress < 0.33
                                 ? '0%'
                                 : scrollProgress < 0.67
-                                ? '50%'
-                                : '100%',
+                                    ? '50%'
+                                    : '100%',
                         opacity: scrollProgress < 0.33 ? 0 : 1,
                         transform: scrollProgress < 0.33 ? 'translateX(100%)' : 'translateX(0)',
                         pointerEvents: scrollProgress < 0.33 ? 'none' : 'auto',
@@ -162,7 +162,7 @@ const Login: React.FC = () => {
                                     required
                                 />
                             </label>
-<div className="login__row">
+                            <div className="login__row">
                                 <label className="login__checkbox">
                                     <input
                                         type="checkbox"
@@ -185,9 +185,10 @@ const Login: React.FC = () => {
                                 <span>or</span>
                             </div>
 
-                            <button type="button" className="loginbutton loginbutton--secondary login_button--google">
+                            <button type="button" className="loginbutton loginbutton--secondary login__button--google">
                                 Continue with Google
                             </button>
+
                             <button type="button" className="loginbutton loginbutton--secondary login__button--microsoft">
                                 Continue with Microsoft
                             </button>
