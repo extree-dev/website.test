@@ -26,6 +26,7 @@ const FloatingField: React.FC<FloatingFieldProps> = ({
     const [isFocused, setIsFocused] = useState(false);
     const labelRef = useRef<HTMLLabelElement | null>(null);
     const [labelWidth, setLabelWidth] = useState(0);
+    const SCROLL_KEY = 'login-scroll-y'
 
     const isFloating = useMemo(() => isFocused || value.trim().length > 0, [isFocused, value]);
 
