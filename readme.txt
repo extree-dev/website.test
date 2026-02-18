@@ -44,3 +44,33 @@ Git-менеджер — SSH-ключи, клонирование, pull
 Настройки вебхуков — авто-рестарт при пуше 
 
 Управление пользователями (для админов)
+
+
+
+# 1) Укажи URL репозитория GitHub (HTTPS или SSH)
+# Примеры:
+#   HTTPS: https://github.com/extree-dev/website.test.git
+#   SSH:   git@github.com:<USER>/<REPO>.git
+GITHUB_REPO_URL="https://github.com/extree-dev/website.test.git"
+
+# 2) Определяем текущую ветку
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+echo "Current branch: ${BRANCH}"
+
+# 3) Если origin уже есть — обновим URL, если нет — добавим
+if git remote get-url origin >/dev/null 2>&1; then
+  echo "origin exists, setting new URL..."
+  git remote set-url origin "${GITHUB_REPO_URL}"
+else
+  echo "origin not found, adding..."
+  git remote add origin "${GITHUB_REPO_URL}"
+fi
+
+# 4) Проверим remotes
+echo "Remotes:"
+git remote -v
+
+# 5) Пушим ветку и назначаем upstream
+git push -u origin "${BRANCH}"
+
+echo "Done. Next pushes can be just: git push"
