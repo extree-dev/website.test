@@ -1,10 +1,71 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import '../CSS/Login.css';
 
 function clamp01(x: number) {
     if (!Number.isFinite(x) || Number.isNaN(x)) return 0;
     return Math.max(0, Math.min(1, x));
 }
+
+type FloatingFieldProps = {
+    id: string;
+    type: 'email' | 'password' | 'text';
+    label: string;
+    value: string;
+    autoComplete?: string;
+    onChange: (v: string) => void;
+};
+
+const FloatingField: React.FC<FloatingFieldProps> = ({
+    id,
+    type,
+    label,
+    value,
+    autoComplete,
+    onChange,
+}) => {
+    const [isFocused, setIsFocused] = useState(false);
+    const labelRef = useRef<HTMLLabelElement | null>(null);
+    const [labelWidth, setLabelWidth] = useState(0);
+
+    const isFloating = useMemo(() => isFocused || value.trim().length > 0, [isFocused, value]);
+
+    useLayoutEffect(() => {
+        const el = labelRef.current;
+        if (!el) return;
+        const measure = () => setLabelWidth(el.getBoundingClientRect().width);
+        measure();
+        window.addEventListener('resize', measure);
+        return () => window.removeEventListener('resize', measure);
+    }, [label]);
+
+    // gap = ширина текста + запас, чтобы верхняя линия точно не заходила под label
+    const style = useMemo(
+        () => ({ ['--label-gap' as any]: `${Math.ceil(labelWidth) + 12}px` }),
+        [labelWidth]
+    );
+
+    return (
+        <div className="login__field">
+            <div className={`login__field-box ${isFloating ? 'is-floating' : ''}`} style={style}>
+                <input
+                    className="login__input"
+                    id={id}
+                    type={type}
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                    placeholder=" "
+                    autoComplete={autoComplete}
+                    required
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                />
+                <label ref={labelRef} className="login__floating-label" htmlFor={id}>
+                    {label}
+                </label>
+            </div>
+        </div>
+    );
+};
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -71,9 +132,7 @@ const Login: React.FC = () => {
                             <span className="login__brand-name">Discord Bot Panel</span>
                         </div>
 
-                        <h1 className="login__title">
-                            Secure access to your workspace.
-                        </h1>
+                        <h1 className="login__title">Secure access to your workspace.</h1>
 
                         <p className="login__subtitle">
                             Sign in to manage projects, track progress, and collaborate with your team — with
@@ -137,31 +196,24 @@ const Login: React.FC = () => {
                         </div>
 
                         <form className="login__form" onSubmit={handleSubmit}>
-                            <label className="login__label">
-                                Email
-                                <input
-                                    className="login__input"
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="name@company.com"
-                                    autoComplete="email"
-                                    required
-                                />
-                            </label>
+                            <FloatingField
+                                id="login-email"
+                                type="email"
+                                label="Email"
+                                value={email}
+                                autoComplete="email"
+                                onChange={setEmail}
+                            />
 
-                            <label className="login__label">
-                                Password
-                                <input
-                                    className="login__input"
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="••••••••"
-                                    autoComplete="current-password"
-                                    required
-                                />
-                            </label>
+                            <FloatingField
+                                id="login-password"
+                                type="password"
+                                label="Password"
+                                value={password}
+                                autoComplete="current-password"
+                                onChange={setPassword}
+                            />
+
                             <div className="login__row">
                                 <label className="login__checkbox">
                                     <input
@@ -185,11 +237,17 @@ const Login: React.FC = () => {
                                 <span>or</span>
                             </div>
 
-                            <button type="button" className="loginbutton loginbutton--secondary login__button--google">
+                            <button
+                                type="button"
+                                className="login__button login__button--secondary login__button--google"
+                            >
                                 Continue with Google
                             </button>
 
-                            <button type="button" className="loginbutton loginbutton--secondary login__button--microsoft">
+                            <button
+                                type="button"
+                                className="login__button login__button--secondary login__button--microsoft"
+                            >
                                 Continue with Microsoft
                             </button>
 

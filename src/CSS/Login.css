@@ -168,7 +168,7 @@ input {
     padding: 10px 0;
 }
 
-.loginhero-card-row + .loginhero-card-row {
+.loginhero-card-row+.loginhero-card-row {
     border-top: 1px solid var(--line);
 }
 
@@ -190,6 +190,7 @@ input {
     font-size: 13px;
     color: var(--muted);
 }
+
 /* Правая панель — форма */
 .login__panel {
     position: fixed;
@@ -243,6 +244,91 @@ input {
     text-transform: uppercase;
 }
 
+/* ===== Floating labels ===== */
+
+/* ===== Floating labels with REAL top-border gap (no background tricks) ===== */
+
+.login__field {
+    position: relative;
+}
+
+.login__field-box {
+    /* tuneables */
+    --inset: 15px;      /* отступ линии от скругления */
+    --gap-left: 12px;  /* где начинается "дырка" (под label) */
+    --label-gap: 64px; /* переопределяется инлайном из TSX */
+
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+/* input внутри box — без своей рамки */
+.login__field-box .login__input {
+    width: 100%;
+    height: 46px;
+    border: 0;
+    background: transparent;
+    padding: 18px 18px 10px;
+    outline: none;
+    box-shadow: none;
+}
+
+/* когда label поднят — убираем верхнюю линию у border и рисуем её сегментами */
+.login__field-box.is-floating {
+    border-top-color: transparent;
+}
+
+.login__field-box.is-floating::before,
+.login__field-box.is-floating::after {
+    content: "";
+    position: absolute;
+    top: -1px;
+    height: 1px;
+    background: var(--line);
+}
+
+/* левый сегмент верхней линии */
+.login__field-box.is-floating::before {
+    left: var(--inset);
+    right: calc(100% - var(--gap-left));
+}
+
+/* правый сегмент верхней линии */
+.login__field-box.is-floating::after {
+    left: calc(var(--gap-left) + var(--label-gap));
+    right: var(--inset);
+}
+
+/* сама метка внутри поля */
+.login__floating-label {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    transform-origin: left top;
+
+    font-size: 14px;
+    color: var(--muted);
+    pointer-events: none;
+
+    transition: transform 160ms ease, top 160ms ease, font-size 160ms ease, color 160ms ease;
+}
+
+/* когда в фокусе или есть текст — “вытаскиваем” над инпутом */
+.login__field-box .login__input:focus + .login__floating-label,
+.login__field-box .login__input:not(:placeholder-shown) + .login__floating-label {
+    top: -10px;
+    transform: translateY(0);
+    font-size: 14px;
+    color: rgba(11, 15, 20, 0.70);
+}
+
+.login__field-box .login__input:focus + .login__floating-label {
+    color: rgba(59, 130, 246, 0.90);
+}
+
 .login__input {
     height: 46px;
     border-radius: 12px;
@@ -253,11 +339,6 @@ input {
     color: var(--text);
     outline: none;
     transition: box-shadow 180ms ease, border-color 180ms ease;
-}
-
-.login__input:focus {
-    border-color: rgba(59, 130, 246, 0.45);
-    box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.12);
 }
 
 .login__row {
@@ -348,6 +429,7 @@ input {
 ===================================================== */
 
 @media (max-width: 980px) {
+
     .login__hero-content,
     .login__panel-inner {
         padding: 40px 22px;
