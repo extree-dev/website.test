@@ -175,7 +175,7 @@ input {
     padding: 10px 0;
 }
 
-.loginhero-card-row+.loginhero-card-row {
+.loginhero-card-row+.login__hero-card-row {
     border-top: 1px solid var(--line);
 }
 
