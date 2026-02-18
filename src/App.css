@@ -106,8 +106,13 @@ body {
 }
 
 @keyframes orbFloat {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(30px, 30px) scale(1.1); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(30px, 30px) scale(1.1);
+  }
 }
 
 /* =====================================================
@@ -125,7 +130,7 @@ body {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-radius: var(--radius-xl);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
+  box-shadow:
     0 30px 60px rgba(0, 0, 0, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: transform var(--transition-base);
@@ -249,7 +254,9 @@ body {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Error */
@@ -300,6 +307,55 @@ body {
   padding: 0.5rem;
   border-top: 1px dashed var(--border-light);
   opacity: 0.7;
+}
+
+/* --- SOCIAL BUTTONS --- */
+
+.login__button--secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--text);
+
+  font-weight: 600;
+  letter-spacing: -0.01em;
+
+  transition: background 160ms ease, box-shadow 160ms ease, transform 120ms ease;
+}
+
+.login__button--secondary:hover {
+  background: #f8fafc;
+  box-shadow: 0 4px 14px rgba(11, 15, 20, 0.08);
+}
+
+.login__button--secondary:active {
+  transform: translateY(1px);
+}
+
+/* --- Google --- */
+
+.login__button--google::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: url("https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg") no-repeat center / contain;
+}
+
+/* --- Microsoft --- */
+
+.login__button--microsoft::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background:
+    linear-gradient(#f25022, #f25022) 0 0/8px 8px no-repeat,
+    linear-gradient(#7fba00, #7fba00) 10px 0/8px 8px no-repeat,
+    linear-gradient(#00a4ef, #00a4ef) 0 10px/8px 8px no-repeat,
+    linear-gradient(#ffb900, #ffb900) 10px 10px/8px 8px no-repeat;
 }
 
 /* =====================================================

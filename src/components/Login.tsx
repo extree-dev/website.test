@@ -185,10 +185,10 @@ const Login: React.FC = () => {
                                 <span>or</span>
                             </div>
 
-                            <button type="button" className="loginbutton loginbutton--secondary">
+                            <button type="button" className="loginbutton loginbutton--secondary login_button--google">
                                 Continue with Google
                             </button>
-                            <button type="button" className="loginbutton loginbutton--secondary">
+                            <button type="button" className="loginbutton loginbutton--secondary login__button--microsoft">
                                 Continue with Microsoft
                             </button>
 
