@@ -73,7 +73,41 @@ const Login: React.FC = () => {
     const [isRemember, setIsRemember] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
 
+    const SCROLL_KEY = 'login:scrollY';
+
     const containerRef = useRef<HTMLDivElement | null>(null);
+
+    // Восстанавливаем позицию скролла при перезагрузке, чтобы анимация не проигрывалась заново
+    useLayoutEffect(() => {
+        try {
+            if ('scrollRestoration' in window.history) {
+                window.history.scrollRestoration = 'manual';
+            }
+
+            const saved = window.sessionStorage.getItem(SCROLL_KEY);
+            if (saved != null) {
+                const y = Number.parseInt(saved, 10);
+                document.documentElement.classList.add('login--restoring');
+                window.scrollTo(0, Number.isFinite(y) ? y : 0);
+            }
+        } catch {
+            // ignore (private mode / blocked storage)
+        }
+
+        let raf1 = 0;
+        let raf2 = 0;
+        raf1 = window.requestAnimationFrame(() => {
+            raf2 = window.requestAnimationFrame(() => {
+                document.documentElement.classList.remove('login--restoring');
+            });
+        });
+
+        return () => {
+            if (raf1) cancelAnimationFrame(raf1);
+            if (raf2) cancelAnimationFrame(raf2);
+            document.documentElement.classList.remove('login--restoring');
+        };
+    }, []);
 
     // Отслеживаем скролл
     useEffect(() => {
@@ -87,13 +121,33 @@ const Login: React.FC = () => {
             // Если maxScroll <= 0 (нет скролла), прогресс должен быть 0 — без NaN/Infinity
             const raw = maxScroll > 0 ? scrollTop / maxScroll : 0;
             setScrollProgress(clamp01(raw));
+
+            // сохраняем позицию, чтобы после refresh остаться на том же кадре
+            try {
+                window.sessionStorage.setItem(SCROLL_KEY, String(scrollTop));
+            } catch {
+                // ignore
+            }
         };
 
         // initial
         handleScroll();
 
         window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
+
+        const handleBeforeUnload = () => {
+            try {
+                window.sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
+            } catch {
+                // ignore
+            }
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
     }, []);
 
     // Обработчик формы

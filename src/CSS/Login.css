@@ -445,3 +445,17 @@ input {
         max-width: 420px;
     }
 }
+
+/* =====================================================
+   SCROLL RESTORE (disable transitions during refresh restore)
+===================================================== */
+
+html.login--restoring .login__hero,
+html.login--restoring .login__panel {
+    transition: none !important;
+}
+
+::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}
