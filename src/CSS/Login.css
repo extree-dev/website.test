@@ -48,7 +48,14 @@ input {
 .login {
     position: relative;
     min-height: 100vh;
+    min-height: 100svh;
     background: var(--white);
+}
+
+@supports (min-height: 100dvh) {
+    .login {
+        min-height: 100dvh;
+    }
 }
 
 /* Искусственная высота для скролла (3 состояния: 0..33..67..100) */
@@ -446,6 +453,48 @@ input {
     }
 }
 
+
+
+/* =====================================================
+   MOBILE (disable split / fixed panels)
+===================================================== */
+
+@media (max-width: 768px) {
+    /* отключаем искусственную высоту для скролла */
+    .login__scroll-track {
+        height: 0 !important;
+    }
+
+    /* возвращаем нормальный поток вместо fixed */
+    .login__container {
+        display: block;
+        min-height: auto;
+        width: 100%;
+    }
+
+    .login__hero,
+    .login__panel {
+        position: static !important;
+        width: 100% !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        z-index: auto !important;
+        border-right: 0;
+    }
+
+    .login__hero {
+        border-bottom: 1px solid var(--line);
+    }
+
+    .login__hero-content,
+    .login__panel-inner {
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 28px 18px;
+    }
+}
+
 /* =====================================================
    SCROLL RESTORE (disable transitions during refresh restore)
 ===================================================== */
@@ -459,3 +508,9 @@ html.login--restoring .login__panel {
     width: 0;
     height: 0;
 }
+
+/* Firefox */
+html { scrollbar-width: none; }
+
+/* IE/old Edge */
+body { -ms-overflow-style: none; }

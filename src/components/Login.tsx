@@ -30,6 +30,20 @@ const FloatingField: React.FC<FloatingFieldProps> = ({
     const isFloating = useMemo(() => isFocused || value.trim().length > 0, [isFocused, value]);
 
     useLayoutEffect(() => {
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        if (isMobile) {
+            // На мобильных отключаем scroll-storytelling и не восстанавливаем позицию
+            try {
+                if ('scrollRestoration' in window.history) {
+                    window.history.scrollRestoration = 'auto';
+                }
+                window.sessionStorage.removeItem(SCROLL_KEY);
+            } catch {
+                // ignore
+            }
+            document.documentElement.classList.remove('login--restoring');
+            return;
+        }
         const el = labelRef.current;
         if (!el) return;
         const measure = () => setLabelWidth(el.getBoundingClientRect().width);
@@ -111,6 +125,9 @@ const Login: React.FC = () => {
 
     // Отслеживаем скролл
     useEffect(() => {
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        if (isMobile) return;
+
         const handleScroll = () => {
             const element = containerRef.current;
             if (!element) return;
